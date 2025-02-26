@@ -4,20 +4,20 @@ import { Schema } from "mongoose";
 const userSchema = new Schema({
   username: {
     type: String,
-    required: [true, "El nombre de usuario es obligatorio"],
-    maxlength: [30, "Nombre de usuario demasiado largo"],
-    minlength: [3, "Nombre de usuario demasiado corto"],
+    required: [true, "Username is required"],
+    maxlength: [30, "Username is too long"],
+    minlength: [3, "Username is too short"],
     unique: true,
   },
   email: {
     type: String,
-    required: [true, "El correo electrónico es obligatorio"],
+    required: [true, "Email is required"],
     unique: true,
   },
   password: {
     type: String,
-    required: [true, "La contraseña es obligatoria"],
-    minlength: [6, "Contraseña demasiado corta"],
+    required: [true, "Password is required"],
+    minlength: [6, "Password is too short"],
   },
   createdAt: {
     type: Date,

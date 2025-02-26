@@ -30,36 +30,36 @@ export const getPendingTasks = async (_req, res) => {
 };
 
 export const getInProgressTasks = async (_req, res) => {
-  const tasks = await getStatusTask("En progreso");
+  const tasks = await getStatusTask("En Progreso");
   if (tasks.message) return res.status(404).json(tasks);
   res.status(200).json(tasks);
 };
 
 export const getCompletedTasks = async (_req, res) => {
-  const tasks = await getStatusTask("Completado");
+  const tasks = await getStatusTask("Completada");
   if (tasks.message) return res.status(404).json(tasks);
   res.status(200).json(tasks);
 };
 
-export const getBajaPriorityTasks = async (_req, res) => {
+export const getLowPriorityTasks = async (_req, res) => {
   const tasks = await getPriorityTask("Baja");
   if (tasks.message) return res.status(404).json(tasks);
   res.status(200).json(tasks);
 };
 
-export const getMediaPriorityTasks = async (_req, res) => {
+export const getMediumPriorityTasks = async (_req, res) => {
   const tasks = await getPriorityTask("Media");
   if (tasks.message) return res.status(404).json(tasks);
   res.status(200).json(tasks);
 };
 
-export const getAltaPriorityTasks = async (_req, res) => {
+export const getHighPriorityTasks = async (_req, res) => {
   const tasks = await getPriorityTask("Alta");
   if (tasks.message) return res.status(404).json(tasks);
   res.status(200).json(tasks);
 };
 
-export const getCriticaPriorityTasks = async (_req, res) => {
+export const getCriticalPriorityTasks = async (_req, res) => {
   const tasks = await getPriorityTask("Crítica");
   if (tasks.message) return res.status(404).json(tasks);
   res.status(200).json(tasks);
@@ -69,7 +69,7 @@ export const getTaskById = async (req, res) => {
   try {
     const task = await Task.findById(req.params.id);
     if (!task) {
-      return res.status(404).json({ message: "Task no encontrado" });
+      return res.status(404).json({ message: "No task found" });
     }
     res.status(200).json(task);
   } catch (error) {
@@ -81,9 +81,10 @@ export const updateTask = async (req, res) => {
   try {
     const task = await Task.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
+      runValidators: true,
     });
     if (!task) {
-      return res.status(404).json({ message: "Task no encontrado" });
+      return res.status(404).json({ message: "No task found" });
     }
     res.status(200).json(task);
   } catch (error) {

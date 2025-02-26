@@ -8,10 +8,10 @@ import {
   getPendingTasks,
   getInProgressTasks,
   getCompletedTasks,
-  getBajaPriorityTasks,
-  getMediaPriorityTasks,
-  getAltaPriorityTasks,
-  getCriticaPriorityTasks,
+  getLowPriorityTasks,
+  getMediumPriorityTasks,
+  getHighPriorityTasks,
+  getCriticalPriorityTasks,
 } from "../controllers/task.controller.js";
 
 const router = Router();
@@ -24,9 +24,9 @@ router.delete("/task/:id", deleteTask);
 router.get("/tasks/pending", getPendingTasks);
 router.get("/tasks/in-progress", getInProgressTasks);
 router.get("/tasks/completed", getCompletedTasks);
-router.get("/tasks/priority/baja", getBajaPriorityTasks);
-router.get("/tasks/priority/media", getMediaPriorityTasks);
-router.get("/tasks/priority/alta", getAltaPriorityTasks);
-router.get("/tasks/priority/critica", getCriticaPriorityTasks);
+router.get("/tasks/priority/low", getLowPriorityTasks);
+router.get("/tasks/priority/medium", getMediumPriorityTasks);
+router.get("/tasks/priority/high", getHighPriorityTasks);
+router.get("/tasks/priority/critical", getCriticalPriorityTasks);
 
 export default router;

@@ -4,16 +4,16 @@ import { Schema } from "mongoose";
 const taskSchema = new Schema({
   title: {
     type: String,
-    required: [true, "El título es obligatorio"],
-    minlength: [5, "El título debe tener al menos 5 caracteres"],
-    maxlength: [100, "El título no puede tener más de 100 caracteres"],
-    unique: [true, "El título debe ser único"],
+    required: [true, "Title is required"],
+    minlength: [5, "Title must be at least 5 characters long"],
+    maxlength: [100, "Title cannot be more than 100 characters long"],
+    unique: [true, "Title must be unique"],
   },
   description: {
     type: String,
-    required: [true, "La descripción es obligatoria"],
-    minlength: [10, "La descripción debe tener al menos 10 caracteres"],
-    maxlength: [500, "La descripción no puede tener más de 500 caracteres"],
+    required: [true, "Description is required"],
+    minlength: [10, "Description must be at least 10 characters long"],
+    maxlength: [500, "Description cannot be more than 500 characters long"],
   },
   status: {
     type: String,
