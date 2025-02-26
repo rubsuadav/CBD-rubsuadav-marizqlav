@@ -1,8 +1,18 @@
+import { Project } from "../models/project.js";
 
 export function handleValidationErrors(error, res) {
-    const keyError = error.message.split(":");
+  const keyError = error.message.split(":");
+  return res.status(400).json({
+    atributeError: keyError[1].trim(),
+    message: keyError[2].trim().split(",")[0],
+  });
+}
+
+export async function handleValidateUniqueProject(name, res) {
+  if (await Project.findOne({ name: name })) {
     return res.status(400).json({
-      atributeError: keyError[1].trim(),
-      message: keyError[2].trim().split(",")[0],
+      message:
+        "Project name already exists, please create another with other name",
     });
   }
+}
