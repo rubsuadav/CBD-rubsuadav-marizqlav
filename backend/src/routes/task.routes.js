@@ -11,7 +11,7 @@ import {
   getBajaPriorityTasks,
   getMediaPriorityTasks,
   getAltaPriorityTasks,
-  getCriticaPriorityTasks
+  getCriticaPriorityTasks,
 } from "../controllers/task.controller.js";
 
 const router = Router();
