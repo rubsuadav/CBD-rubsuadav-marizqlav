@@ -1,4 +1,4 @@
-import { User } from '../models/user.js';
+import { User } from "../models/user.js";
 
 export const getAllUsers = async (_req, res) => {
   try {
@@ -6,7 +6,6 @@ export const getAllUsers = async (_req, res) => {
     if (users.length === 0)
       return res.status(404).json({ message: "No users found" });
     res.status(200).json(users);
-
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -17,7 +16,7 @@ export const getUserById = async (req, res) => {
     const userId = req.params.id;
     const user = await User.findById(userId);
     if (!user) {
-      return res.status(404).json({ message: 'Usuario no encontrado' });
+      return res.status(404).json({ message: "Usuario no encontrado" });
     }
     res.status(200).json(user);
   } catch (error) {
