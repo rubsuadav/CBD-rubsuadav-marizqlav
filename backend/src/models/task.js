@@ -29,13 +29,13 @@ const taskSchema = new Schema({
     type: Date,
     default: new Date().toUTCString().split(" ").slice(0, 5).join(" "),
   },
-  users: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "User",
-      required: true,
-    },
-  ],
+  // users: [
+  //   {
+  //     type: Schema.Types.ObjectId,
+  //     ref: "User",
+  //     required: true,
+  //   },
+  // ],
 });
 
 export const Task = mongoose.model("Task", taskSchema, "tasks");

@@ -3,8 +3,12 @@ import { handleValidationErrors } from "../validators/validate.js";
 
 export const createTask = async (req, res) => {
   try {
-    const { title, description, status, priority, users } = req.body;
-    const newTask = new Task({ title, description, status, priority, users });
+    const { title, description, status, priority
+      // ,users 
+    } = req.body;
+    const newTask = new Task({ title, description, status, priority
+    //  , users
+     });
     await newTask.save();
     res.status(201).json(newTask);
   } catch (error) {
@@ -35,10 +39,14 @@ export const getTaskById = async (req, res) => {
 
 export const updateTask = async (req, res) => {
   try {
-    const { title, description, status, priority, users } = req.body;
+    const { title, description, status, priority
+      //, users
+       } = req.body;
     const task = await Task.findByIdAndUpdate(
       req.params.id,
-      { title, description, status, priority, users },
+      { title, description, status, priority
+        // ,users
+       },
       { new: true }
     );
     if (!task) {
