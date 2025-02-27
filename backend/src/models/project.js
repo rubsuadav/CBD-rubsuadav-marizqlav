@@ -1,6 +1,9 @@
 import mongoose from "mongoose";
 import { Schema } from "mongoose";
 
+// local imports
+import { Task } from "./task.js";
+
 const projectSchema = new Schema({
   name: {
     type: String,
@@ -22,21 +25,13 @@ const projectSchema = new Schema({
     default: new Date().toUTCString().split(" ").slice(0, 5).join(" "),
   },
 
-  // 1 project has many users
-  // users: [
-  //     {
-  //         type: Schema.Types.ObjectId,
-  //         ref: "User",
-  //     },
-  // ],
-
   // 1 project has many tasks
-  // tasks: [
-  //     {
-  //     type: Schema.Types.ObjectId,
-  //     ref: Task,
-  //     },
-  // ],
+  tasks: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: Task,
+    },
+  ],
 });
 
 export const Project = mongoose.model("Project", projectSchema, "projects");

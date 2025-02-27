@@ -1,5 +1,6 @@
 import { Router } from "express";
 import {
+  asociateTaskToProject,
   createProject,
   deleteProject,
   getAllProjects,
@@ -20,5 +21,6 @@ router.post("/project", createProject);
 router.get("/project/:id", getProjectById);
 router.put("/project/:id", updateProject);
 router.delete("/project/:id", deleteProject);
+router.post("/project/:id/task", asociateTaskToProject);
 
 export default router;
