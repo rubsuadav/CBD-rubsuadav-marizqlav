@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
 import { Schema } from "mongoose";
+import { Task } from "./task.js";
+import { Project } from "./project.js";
 
 const userSchema = new Schema({
   username: {
@@ -23,6 +25,18 @@ const userSchema = new Schema({
     type: Date,
     default: new Date().toUTCString().split(" ").slice(0, 5).join(" "),
   },
+  tasks: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: Task,
+    },
+  ],
+  projects: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: Project,
+    },
+  ],
 });
 
 export const User = mongoose.model("User", userSchema, "users");

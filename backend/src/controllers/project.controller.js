@@ -1,5 +1,6 @@
 import { Project } from "../models/project.js";
-import { getStatusProject } from "../utils/utils.js";
+import { Task } from "../models/task.js";
+import { getStatusProject, updateProjectStatus } from "../utils/utils.js";
 import {
   handleValidateUniqueProject,
   handleValidationErrors,
@@ -7,7 +8,7 @@ import {
 
 export const getAllProjects = async (_req, res) => {
   try {
-    const projects = await Project.find({}, { __v: 0 });
+    const projects = await Project.find({}, { __v: 0 }).populate("tasks");
     if (projects.length === 0)
       return res.status(404).json({ message: "No projects found" });
     res.status(200).json(projects);
@@ -36,7 +37,7 @@ export const getCompletedProjects = async (_req, res) => {
 
 export const getProjectById = async (req, res) => {
   try {
-    const project = await Project.findById(req.params.id);
+    const project = await Project.findById(req.params.id).populate("tasks");
     if (!project) return res.status(404).json({ message: "Project not found" });
     res.status(200).json(project);
   } catch (error) {
@@ -48,12 +49,6 @@ export const createProject = async (req, res) => {
   if (await handleValidateUniqueProject(req.body.name, res)) return;
   try {
     const project = new Project(req.body);
-    //TODO: ASOCIATE PROJECT STATUS ACCORDING TO TASK STATUS
-    /*
-        // for task on tasks array, if any task.status is "Pendiente" then project status is "Pendiente"
-        // if all task.status is "Completada" then project status is "Completado"
-        // if any task.status is "En progreso" then project status is "En progreso"
-         */
     await project.save();
     res.status(201).json(project);
   } catch (error) {
@@ -85,8 +80,41 @@ export const deleteProject = async (req, res) => {
   try {
     const project = await Project.findByIdAndDelete(req.params.id);
     if (!project) return res.status(404).json({ message: "Project not found" });
+    project.tasks.forEach(async (task) => {
+      await Task.findByIdAndDelete(task._id);
+    });
     res.status(204).json({ message: "Project deleted successfully" });
   } catch (error) {
     res.status(500).json({ message: error.message });
+  }
+};
+
+export const asociateTaskToProject = async (req, res) => {
+  try {
+    const project = await Project.findById(req.params.id).populate("tasks");
+    if (!project) return res.status(404).json({ message: "Project not found" });
+
+    if (Array.isArray(req.body.taskId)) {
+      const tasks = await Task.find({ _id: { $in: req.body.taskId } });
+      if (tasks.length === 0)
+        return res.status(404).json({ message: "Task not found" });
+
+      for (const t of tasks) {
+        if (project.tasks.some((p) => p._id.toString() === t._id.toString())) {
+          return res.status(400).json({ message: "Task already associated" });
+        }
+      }
+
+      project.tasks.push(...tasks);
+      await updateProjectStatus(project);
+      await project.save();
+      return res.status(201).json(project);
+    } else {
+      return res
+        .status(400)
+        .json({ message: "You must provide an array of task ids" });
+    }
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
   }
 };
