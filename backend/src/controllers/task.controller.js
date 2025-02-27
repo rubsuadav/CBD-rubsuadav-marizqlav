@@ -1,8 +1,12 @@
 import { Task } from "../models/task.js";
-import { handleValidationErrors } from "../validators/validate.js";
+import {
+  handleValidateUniqueTask,
+  handleValidationErrors,
+} from "../validators/validate.js";
 import { getStatusTask, getPriorityTask } from "../utils/utils.js";
 
 export const createTask = async (req, res) => {
+  if (await handleValidateUniqueTask(req.body.title, res)) return;
   try {
     const newTask = new Task(req.body);
     await newTask.save();
