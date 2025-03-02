@@ -1,5 +1,6 @@
 import { Project } from "../models/project.js";
 import { Task } from "../models/task.js";
+import { User } from "../models/user.js";
 
 export function handleValidationErrors(error, res) {
   const keyError = error.message.split(":");
@@ -24,5 +25,21 @@ export async function handleValidateUniqueTask(title, res) {
       message:
         "Task title already exists, please create another with other title",
     });
+  }
+}
+
+export async function handleValidateUniqueUser(username, email, res) {
+  if (await User.findOne({ $or: [{ username }, { email }] })) {
+    return res.status(400).json({
+      message: "Username or email already exists, please choose another",
+    });
+  }
+}
+
+export function validateEmail(email, res) {
+  if (!/^\w+([.-]?\w+)*@(gmail|hotmail|outlook)\.com$/.test(email)) {
+    return res
+      .status(400)
+      .json({ message: "Email must be from gmail, hotmail or outlook" });
   }
 }

@@ -114,3 +114,16 @@ export const deleteTask = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+export const searchTasksByStatus = async (req, res) => {
+  const status = req.query.status;
+  if (!status) return res.status(400).json({ message: "status is required" });
+  try {
+    const tasks = await Task.find({
+      $where: `this.status === "${status}"`,
+    });
+    res.status(200).json(tasks);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
