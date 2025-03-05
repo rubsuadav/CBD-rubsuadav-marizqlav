@@ -1,5 +1,6 @@
 import { Project } from "../models/project.js";
 import { Task } from "../models/task.js";
+import { User } from "../models/user.js";
 
 export async function getStatusProject(status) {
   try {
@@ -46,5 +47,26 @@ export async function updateProjectStatus(project) {
     } else {
       project.status = "Pendiente";
     }
+  }
+}
+
+export async function assignTask(userId, taskId) {
+  try {
+    const user = await User.findById(userId);
+    if (!user) {
+      throw new Error("User not found");
+    }
+    const task = await Task.findById(taskId);
+    if (!task) {
+      throw new Error("Task not found");
+    }
+    if (user.tasks.includes(taskId)) {
+      throw new Error("Task already assigned to the user");
+    }
+    user.tasks.push(task);
+    await user.save();
+    return { message: "Task assigned successfully" };
+  } catch (error) {
+    throw new Error(error.message);
   }
 }

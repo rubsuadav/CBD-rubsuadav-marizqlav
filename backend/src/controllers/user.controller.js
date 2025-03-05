@@ -1,4 +1,5 @@
 import { User } from "../models/user.js";
+import { assignTask } from "../utils/utils.js";
 
 export const getAllUsers = async (_req, res) => {
   try {
@@ -23,6 +24,30 @@ export const getUserById = async (req, res) => {
       return res.status(404).json({ message: "No user found" });
     }
     res.status(200).json(user);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const assignTaskToUser = async (req, res) => {
+  try {
+    const { userId, taskId } = req.body;
+    const result = await assignTask(userId, taskId);
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+
+export const getUserTasks = async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const user = await User.findById(userId).populate("tasks");
+    if (!user) {
+      return res.status(404).json({ message: "No user found" });
+    }
+    res.status(200).json(user.tasks);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
