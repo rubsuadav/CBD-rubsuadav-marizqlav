@@ -50,22 +50,26 @@ export async function updateProjectStatus(project) {
   }
 }
 
-export async function assignTask(userId, taskId) {
+export async function assignTasks(userId, taskIds) {
   try {
     const user = await User.findById(userId);
     if (!user) {
       throw new Error("User not found");
     }
-    const task = await Task.findById(taskId);
-    if (!task) {
-      throw new Error("Task not found");
+
+    const tasks = await Task.find({ _id: { $in: taskIds } });
+    if (tasks.length !== taskIds.length) {
+      throw new Error("One or more tasks not found");
     }
-    if (user.tasks.includes(taskId)) {
-      throw new Error("Task already assigned to the user");
+
+    const alreadyAssignedTasks = user.tasks.filter(taskId => taskIds.includes(taskId.toString()));
+    if (alreadyAssignedTasks.length > 0) {
+      throw new Error("One or more tasks already assigned to the user");
     }
-    user.tasks.push(task);
+
+    user.tasks.push(...tasks.map(task => task._id));
     await user.save();
-    return { message: "Task assigned successfully" };
+    return { message: "Tasks assigned successfully" };
   } catch (error) {
     throw new Error(error.message);
   }

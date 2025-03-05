@@ -133,8 +133,9 @@ export const searchTasksByStatus = async (req, res) => {
 
 export const updateTaskStatus = async (req, res) => {
   try {
-    const { taskId, status } = req.body;
-    console.log(taskId, status);
+    const { status } = req.body;
+    const { taskId } = req.params;
+
     if (!["Pendiente", "En Progreso", "Completada"].includes(status)) {
       return res.status(400).json({ message: "Invalid status" });
     }
@@ -151,4 +152,3 @@ export const updateTaskStatus = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
-

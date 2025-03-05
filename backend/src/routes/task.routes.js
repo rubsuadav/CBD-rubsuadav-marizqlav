@@ -31,6 +31,6 @@ router.get("/tasks/priority/low", getLowPriorityTasks);
 router.get("/tasks/priority/medium", getMediumPriorityTasks);
 router.get("/tasks/priority/high", getHighPriorityTasks);
 router.get("/tasks/priority/critical", getCriticalPriorityTasks);
-router.put("/tasks/status", updateTaskStatus);
+router.put('/tasks/:taskId/status', updateTaskStatus);
 
 export default router;
