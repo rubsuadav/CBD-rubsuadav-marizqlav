@@ -13,6 +13,7 @@ import {
   getHighPriorityTasks,
   getCriticalPriorityTasks,
   searchTasksByStatus,
+  updateTaskStatus,
 } from "../controllers/task.controller.js";
 
 const router = Router();
@@ -30,5 +31,6 @@ router.get("/tasks/priority/low", getLowPriorityTasks);
 router.get("/tasks/priority/medium", getMediumPriorityTasks);
 router.get("/tasks/priority/high", getHighPriorityTasks);
 router.get("/tasks/priority/critical", getCriticalPriorityTasks);
+router.put("/tasks/status", updateTaskStatus);
 
 export default router;

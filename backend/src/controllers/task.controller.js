@@ -1,4 +1,5 @@
 import { Task } from "../models/task.js";
+import { User } from "../models/user.js";
 import {
   handleValidateUniqueTask,
   handleValidationErrors,
@@ -109,6 +110,8 @@ export const deleteTask = async (req, res) => {
     if (!task) {
       return res.status(404).json({ message: "Task no encontrado" });
     }
+    await User.updateMany({ tasks: task._id }, { $pull: { tasks: task._id } });
+
     res.status(200).json({ message: "Task eliminado" });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -127,3 +130,25 @@ export const searchTasksByStatus = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+export const updateTaskStatus = async (req, res) => {
+  try {
+    const { taskId, status } = req.body;
+    console.log(taskId, status);
+    if (!["Pendiente", "En Progreso", "Completada"].includes(status)) {
+      return res.status(400).json({ message: "Invalid status" });
+    }
+    const task = await Task.findByIdAndUpdate(
+      taskId,
+      { status },
+      { new: true }
+    );
+    if (!task) {
+      return res.status(404).json({ message: "Task not found" });
+    }
+    res.status(200).json(task);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
