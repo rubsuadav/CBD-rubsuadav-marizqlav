@@ -1,0 +1,15 @@
+.example-carousel-image {
+  align-items: center;
+}
+
+.text-col {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-col {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

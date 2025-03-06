@@ -1,0 +1,19 @@
+.custom-carousel {
+  border: 1px solid #ddd;
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 200px;
+}
+
+.carousel-control-prev-icon {
+  margin-right: 170px;
+}
+
+.carousel-control-next-icon {
+  margin-left: 170px;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  filter: invert(1);
+}
