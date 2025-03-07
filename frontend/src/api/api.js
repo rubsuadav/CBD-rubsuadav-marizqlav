@@ -15,3 +15,14 @@ export async function createTask(task) {
   });
   return { status: response.status, data: await response.json() };
 }
+
+export async function updateTaskStatus(taskId, status) {
+  const response = await fetch(`${API_URL}/tasks/${taskId}/status`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ status }),
+  });
+  return response.status;
+}
