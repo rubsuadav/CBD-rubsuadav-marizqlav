@@ -1,4 +1,4 @@
-import { API_URL } from "../config";
+import { API_AUTH_URL, API_URL } from "../config";
 
 export async function getTasks() {
   const response = await fetch(`${API_URL}/tasks`);
@@ -54,4 +54,26 @@ export async function deleteTask(taskId) {
   await fetch(`${API_URL}/task/${taskId}`, {
     method: "DELETE",
   });
+}
+
+export async function register(user) {
+  const response = await fetch(`${API_AUTH_URL}/register`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(user),
+  });
+  return { status: response.status, data: await response.json() };
+}
+
+export async function login(user) {
+  const response = await fetch(`${API_AUTH_URL}/login`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(user),
+  });
+  return { status: response.status, data: await response.json() };
 }
