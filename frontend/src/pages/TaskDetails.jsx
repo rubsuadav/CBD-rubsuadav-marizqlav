@@ -8,13 +8,13 @@ import { getTask, updateTask, deleteTask } from "../api/api";
 export default function TaskDetails() {
   const { taskId } = useParams();
   const [task, setTask] = useState({});
+  const [updateTaskModal, setUpdateTaskModal] = useState(false);
 
   useEffect(() => {
     getTask(taskId).then((data) => setTask(data));
-  }, [taskId]);
+  }, [taskId, updateTaskModal]);
 
   // ACTUALIZAR TAREA
-  const [updateTaskModal, setUpdateTaskModal] = useState(false);
   const [error, setError] = useState({});
 
   function handleTaskChange(e) {
@@ -25,15 +25,19 @@ export default function TaskDetails() {
   async function handleUpdateTask(e) {
     e.preventDefault();
     if (!task.title || !task.description || !task.priority) {
-      setError({ message: "Todos los campos son obligatorios" });
+      setError({ message: "All fields are required" });
       return;
     }
     if (task.title.length < 5 || task.title.length > 100) {
-      setError({ message: "El título debe tener entre 5 y 100 caracteres" });
+      setError({
+        message:
+          "Title must be at least 5 characters long and less than 100 characters",
+      });
       return;
     } else if (task.description.length < 10 || task.description.length > 500) {
       setError({
-        message: "La descripción debe tener entre 10 y 500 caracteres",
+        message:
+          "Description must be at least 10 characters long and less than 500 characters",
       });
       return;
     }
