@@ -8,6 +8,7 @@ import Home from "./pages/Home";
 import Tasks from "./pages/Tasks";
 import Projects from "./pages/Projects";
 import TaskDetails from "./pages/TaskDetails";
+import ProjectDetails from "./pages/ProjectDetails";
 
 export default function App() {
   return (
@@ -19,6 +20,10 @@ export default function App() {
           <Route path="/tasks" element={<Tasks />}></Route>
           <Route path="/task/:taskId" element={<TaskDetails />}></Route>
           <Route path="/projects" element={<Projects />}></Route>
+          <Route
+            path="/project/:projectId"
+            element={<ProjectDetails />}
+          ></Route>
         </Routes>
       </Container>
     </Router>

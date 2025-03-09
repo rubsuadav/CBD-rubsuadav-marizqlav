@@ -24,7 +24,7 @@ export default function CustomNavbar() {
               Tareas
             </Nav.Link>
             <SearchTasks />
-            <Nav.Link href="/projects" className="mx-2">
+            <Nav.Link onClick={() => navigate("/projects")} className="mx-2">
               Proyectos
             </Nav.Link>
           </Nav>
