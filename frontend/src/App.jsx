@@ -1,3 +1,6 @@
+import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+
 // local imports
 import CustomNavbar from "./components/CustomNavbar";
 import { Container } from "react-bootstrap";
