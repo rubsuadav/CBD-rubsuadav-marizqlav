@@ -56,15 +56,20 @@ export default function Tasks() {
   const columns = {
     Pendiente: {
       name: "Pendiente",
-      items: tasks.filter((task) => task.status === "Pendiente"),
+      items:
+        tasks.length > 0 && tasks.filter((task) => task.status === "Pendiente"),
     },
     "En Progreso": {
       name: "En Progreso",
-      items: tasks.filter((task) => task.status === "En Progreso"),
+      items:
+        tasks.length > 0 &&
+        tasks.filter((task) => task.status === "En Progreso"),
     },
     Completada: {
       name: "Completada",
-      items: tasks.filter((task) => task.status === "Completada"),
+      items:
+        tasks.length > 0 &&
+        tasks.filter((task) => task.status === "Completada"),
     },
   };
 
@@ -107,40 +112,41 @@ export default function Tasks() {
                       ref={provided.innerRef}
                       className="w-auto h-auto p-2 bg-black bg-gradient bg-opacity-50"
                     >
-                      {column.items.map((item, index) => (
-                        <Draggable
-                          key={item._id}
-                          draggableId={item._id}
-                          index={index}
-                        >
-                          {(provided) => (
-                            <Card
-                              ref={provided.innerRef}
-                              {...provided.draggableProps}
-                              {...provided.dragHandleProps}
-                              className="p-3 mb-2 text-white text-center"
-                              style={{
-                                ...provided.draggableProps.style,
-                                backgroundColor: "rgb(220, 140, 122)",
-                              }}
-                            >
-                              <Card.Title
-                                className="text-decoration-underline"
-                                style={{ cursor: "pointer" }}
-                                onClick={() => {
-                                  setShowTaskModal(false);
-                                  navigate(`/task/${item._id}`);
+                      {tasks.length > 0 &&
+                        column.items.map((item, index) => (
+                          <Draggable
+                            key={item._id}
+                            draggableId={item._id}
+                            index={index}
+                          >
+                            {(provided) => (
+                              <Card
+                                ref={provided.innerRef}
+                                {...provided.draggableProps}
+                                {...provided.dragHandleProps}
+                                className="p-3 mb-2 text-white text-center"
+                                style={{
+                                  ...provided.draggableProps.style,
+                                  backgroundColor: "rgb(220, 140, 122)",
                                 }}
                               >
-                                {item.title}
-                              </Card.Title>
-                              <Card.Text>
-                                <strong>Prioridad:</strong> {item.priority}
-                              </Card.Text>
-                            </Card>
-                          )}
-                        </Draggable>
-                      ))}
+                                <Card.Title
+                                  className="text-decoration-underline"
+                                  style={{ cursor: "pointer" }}
+                                  onClick={() => {
+                                    setShowTaskModal(false);
+                                    navigate(`/task/${item._id}`);
+                                  }}
+                                >
+                                  {item.title}
+                                </Card.Title>
+                                <Card.Text>
+                                  <strong>Prioridad:</strong> {item.priority}
+                                </Card.Text>
+                              </Card>
+                            )}
+                          </Draggable>
+                        ))}
                       {provided.placeholder}
                     </div>
                   )}
