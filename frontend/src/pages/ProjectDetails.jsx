@@ -211,7 +211,7 @@ export default function ProjectDetails() {
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={handleAssociateTasks}>
-            {tasks.length>0 && tasks.map((task) => (
+            {tasks.length > 0 && tasks.map((task) => (
               <Form.Group key={task._id} controlId={`task-${task._id}`}>
                 <Form.Check
                   type="checkbox"

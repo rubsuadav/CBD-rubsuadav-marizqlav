@@ -56,7 +56,6 @@ export async function deleteTask(taskId) {
   });
 }
 
-
 export async function getProjects() {
   const response = await fetch(`${API_URL}/projects`);
   return response.json();
