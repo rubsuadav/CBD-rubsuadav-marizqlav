@@ -1,4 +1,3 @@
-import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 // local imports
@@ -10,6 +9,7 @@ import Projects from "./pages/Projects";
 import TaskDetails from "./pages/TaskDetails";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
+import ProjectDetails from "./pages/ProjectDetails";
 
 export default function App() {
   return (
@@ -21,6 +21,10 @@ export default function App() {
           <Route path="/tasks" element={<Tasks />}></Route>
           <Route path="/task/:taskId" element={<TaskDetails />}></Route>
           <Route path="/projects" element={<Projects />}></Route>
+          <Route
+            path="/project/:projectId"
+            element={<ProjectDetails />}
+          ></Route>
           <Route path="/register" element={<Register />}></Route>
           <Route path="/login" element={<Login />}></Route>
         </Routes>

@@ -56,6 +56,55 @@ export async function deleteTask(taskId) {
   });
 }
 
+export async function getProjects() {
+  const response = await fetch(`${API_URL}/projects`);
+  return response.json();
+}
+
+export async function createProject(project) {
+  const response = await fetch(`${API_URL}/project`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(project),
+  });
+  return { status: response.status, data: await response.json() };
+}
+
+export async function getProject(projectId) {
+  const response = await fetch(`${API_URL}/project/${projectId}`);
+  return response.json();
+}
+
+export async function updateProject(projectId, project) {
+  const response = await fetch(`${API_URL}/project/${projectId}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(project),
+  });
+  return { status: response.status, data: await response.json() };
+}
+
+export async function deleteProject(projectId) {
+  await fetch(`${API_URL}/project/${projectId}`, {
+    method: "DELETE",
+  });
+}
+
+export async function asociateTaskToProject(projectId, taskIds) {
+  const response = await fetch(`${API_URL}/project/${projectId}/task`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ taskId: taskIds }),
+  });
+  return { status: response.status, data: await response.json() };
+}
+
 export async function register(user) {
   const response = await fetch(`${API_AUTH_URL}/register`, {
     method: "POST",
