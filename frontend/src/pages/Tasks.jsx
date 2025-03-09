@@ -46,7 +46,9 @@ export default function Tasks() {
         setError(data);
         break;
       case 201:
-        setTasks([...tasks, data]);
+        setTasks((prevTasks) =>
+          Array.isArray(prevTasks) ? [...prevTasks, data] : [data]
+        );
         setShowTaskModal(false);
         break;
     }

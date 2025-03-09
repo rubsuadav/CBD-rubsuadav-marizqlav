@@ -45,7 +45,9 @@ export default function Projects() {
         setError(data);
         break;
       case 201:
-        setProjects([...projects, data]);
+        setProjects((prevProjects) =>
+          Array.isArray(prevProjects) ? [...prevProjects, data] : [data]
+        );
         setShowProjectModal(false);
         break;
     }
