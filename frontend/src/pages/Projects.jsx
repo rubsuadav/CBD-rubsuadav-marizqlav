@@ -1,6 +1,13 @@
-import React from 'react'
 import { useEffect, useState } from "react";
-import { Button, Form, Modal, Container, Row, Col, Card } from "react-bootstrap";
+import {
+  Button,
+  Form,
+  Modal,
+  Container,
+  Row,
+  Col,
+  Card,
+} from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
 // local imports
@@ -56,28 +63,29 @@ export default function Projects() {
 
       <Container>
         <Row>
-          {projects.map((project) => (
-            <Col key={project._id} md={4} className="mb-4">
-              <Card
-                className="p-3 text-white text-center"
-                style={{ backgroundColor: "rgb(220, 140, 122)" }}
-              >
-                <Card.Title
-                  className="text-decoration-underline"
-                  style={{ cursor: "pointer" }}
-                  onClick={() => {
-                    setShowProjectModal(false);
-                    navigate(`/project/${project._id}`);
-                  }}
+          {projects.length > 0 &&
+            projects.map((project) => (
+              <Col key={project._id} md={4} className="mb-4">
+                <Card
+                  className="p-3 text-white text-center"
+                  style={{ backgroundColor: "rgb(220, 140, 122)" }}
                 >
-                  {project.name}
-                </Card.Title>
-                <Card.Text>
-                  <strong>Descripción:</strong> {project.description}
-                </Card.Text>
-              </Card>
-            </Col>
-          ))}
+                  <Card.Title
+                    className="text-decoration-underline"
+                    style={{ cursor: "pointer" }}
+                    onClick={() => {
+                      setShowProjectModal(false);
+                      navigate(`/project/${project._id}`);
+                    }}
+                  >
+                    {project.name}
+                  </Card.Title>
+                  <Card.Text>
+                    <strong>Descripción:</strong> {project.description}
+                  </Card.Text>
+                </Card>
+              </Col>
+            ))}
         </Row>
       </Container>
 

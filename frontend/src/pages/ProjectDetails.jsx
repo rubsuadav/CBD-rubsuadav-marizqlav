@@ -1,10 +1,15 @@
-import React from 'react'
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Row, Col, Card, Button, Modal, Form } from "react-bootstrap";
 
 // local imports
-import { getProject, updateProject, deleteProject, asociateTaskToProject, getTasks } from "../api/api";
+import {
+  getProject,
+  updateProject,
+  deleteProject,
+  asociateTaskToProject,
+  getTasks,
+} from "../api/api";
 
 export default function ProjectDetails() {
   const { projectId } = useParams();
@@ -63,7 +68,10 @@ export default function ProjectDetails() {
 
   async function handleAssociateTasks(e) {
     e.preventDefault();
-    const { status, data } = await asociateTaskToProject(projectId, selectedTasks);
+    const { status, data } = await asociateTaskToProject(
+      projectId,
+      selectedTasks
+    );
     if (status === 201) {
       setAssociateTaskModal(false);
       setProject(data);
@@ -110,13 +118,22 @@ export default function ProjectDetails() {
                 </ul>
               </Card.Text>
               <div className="d-flex justify-content-between">
-                <Button variant="info" onClick={() => setUpdateProjectModal(true)}>
+                <Button
+                  variant="info"
+                  onClick={() => setUpdateProjectModal(true)}
+                >
                   Actualizar
                 </Button>
-                <Button variant="danger" onClick={() => setShowDeleteModal(true)}>
+                <Button
+                  variant="danger"
+                  onClick={() => setShowDeleteModal(true)}
+                >
                   Eliminar
                 </Button>
-                <Button variant="primary" onClick={() => setAssociateTaskModal(true)}>
+                <Button
+                  variant="primary"
+                  onClick={() => setAssociateTaskModal(true)}
+                >
                   Asociar Tareas
                 </Button>
               </div>
@@ -211,16 +228,17 @@ export default function ProjectDetails() {
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={handleAssociateTasks}>
-            {tasks.length > 0 && tasks.map((task) => (
-              <Form.Group key={task._id} controlId={`task-${task._id}`}>
-                <Form.Check
-                  type="checkbox"
-                  label={task.title}
-                  value={task._id}
-                  onChange={handleTaskSelection}
-                />
-              </Form.Group>
-            ))}
+            {tasks.length > 0 &&
+              tasks.map((task) => (
+                <Form.Group key={task._id} controlId={`task-${task._id}`}>
+                  <Form.Check
+                    type="checkbox"
+                    label={task.title}
+                    value={task._id}
+                    onChange={handleTaskSelection}
+                  />
+                </Form.Group>
+              ))}
             <Button variant="primary" type="submit" className="mt-3">
               Asociar Tareas
             </Button>

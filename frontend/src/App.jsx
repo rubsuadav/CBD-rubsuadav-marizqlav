@@ -20,7 +20,10 @@ export default function App() {
           <Route path="/tasks" element={<Tasks />}></Route>
           <Route path="/task/:taskId" element={<TaskDetails />}></Route>
           <Route path="/projects" element={<Projects />}></Route>
-          <Route path="/project/:projectId" element={<ProjectDetails />}></Route>
+          <Route
+            path="/project/:projectId"
+            element={<ProjectDetails />}
+          ></Route>
         </Routes>
       </Container>
     </Router>
