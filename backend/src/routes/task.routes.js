@@ -12,14 +12,14 @@ import {
   getMediumPriorityTasks,
   getHighPriorityTasks,
   getCriticalPriorityTasks,
-  searchTasksByStatus,
+  searchTasksByPriority,
   updateTaskStatus,
 } from "../controllers/task.controller.js";
 
 const router = Router();
 
 router.post("/task", createTask);
-router.get("/tasks/search", searchTasksByStatus);
+router.get("/tasks/priority", searchTasksByPriority);
 router.get("/tasks", getAllTasks);
 router.get("/task/:id", getTaskById);
 router.put("/task/:id", updateTask);

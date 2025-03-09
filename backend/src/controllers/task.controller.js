@@ -118,13 +118,11 @@ export const deleteTask = async (req, res) => {
   }
 };
 
-export const searchTasksByStatus = async (req, res) => {
-  const status = req.query.status;
-  if (!status) return res.status(400).json({ message: "status is required" });
+export const searchTasksByPriority = async (req, res) => {
+  const priority = req.query.priority;
+  if (!priority) return res.status(400).json({ message: "priority is required" });
   try {
-    const tasks = await Task.find({
-      $where: `this.status === "${status}"`,
-    });
+    const tasks = await Task.find({ priority: { $eq: priority } });
     res.status(200).json(tasks);
   } catch (error) {
     res.status(500).json({ message: error.message });
