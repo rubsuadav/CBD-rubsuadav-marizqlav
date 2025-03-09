@@ -18,13 +18,8 @@ export default function ProjectDetails() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    async function fetchData() {
-      const projectData = await getProject(projectId);
-      setProject(projectData);
-      const tasksData = await getTasks();
-      setTasks(tasksData);
-    }
-    fetchData();
+    getProject(projectId).then((data) => setProject(data));
+    getTasks().then((data) => setTasks(data));
   }, [projectId, updateProjectModal]);
 
   function handleProjectChange(e) {
@@ -216,7 +211,7 @@ export default function ProjectDetails() {
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={handleAssociateTasks}>
-            {tasks.map((task) => (
+            {tasks.length>0 && tasks.map((task) => (
               <Form.Group key={task._id} controlId={`task-${task._id}`}>
                 <Form.Check
                   type="checkbox"
