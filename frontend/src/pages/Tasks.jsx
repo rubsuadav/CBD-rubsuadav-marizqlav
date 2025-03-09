@@ -9,6 +9,7 @@ import {
   Card,
 } from "react-bootstrap";
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
+import { useNavigate } from "react-router-dom";
 
 // local imports
 import { createTask, getTasks, updateTaskStatus } from "../api/api";
@@ -19,6 +20,8 @@ export default function Tasks() {
   useEffect(() => {
     getTasks().then((data) => setTasks(data));
   }, []);
+
+  const navigate = useNavigate();
 
   // CREACION
   const [task, setTask] = useState({
@@ -49,6 +52,7 @@ export default function Tasks() {
     }
   }
 
+  // DRAG AND DROP
   const columns = {
     Pendiente: {
       name: "Pendiente",
@@ -117,10 +121,22 @@ export default function Tasks() {
                               className="p-3 mb-2 text-white text-center"
                               style={{
                                 ...provided.draggableProps.style,
-                                backgroundColor: "lightcoral",
+                                backgroundColor: "rgb(220, 140, 122)",
                               }}
                             >
-                              {item.title}
+                              <Card.Title
+                                className="text-decoration-underline"
+                                style={{ cursor: "pointer" }}
+                                onClick={() => {
+                                  setShowTaskModal(false);
+                                  navigate(`/task/${item._id}`);
+                                }}
+                              >
+                                {item.title}
+                              </Card.Title>
+                              <Card.Text>
+                                <strong>Prioridad:</strong> {item.priority}
+                              </Card.Text>
                             </Card>
                           )}
                         </Draggable>
@@ -160,7 +176,7 @@ export default function Tasks() {
                 onChange={(e) => handleTaskChange(e)}
               />
             </Form.Group>
-            <Form.Group>
+            <Form.Group className="mt-3">
               <Form.Label>Descripcion</Form.Label>
               <Form.Control
                 as="textarea"
@@ -170,6 +186,20 @@ export default function Tasks() {
                 value={task.description}
                 onChange={(e) => handleTaskChange(e)}
               />
+            </Form.Group>
+            <Form.Group className="mt-3">
+              <Form.Label>Prioridad</Form.Label>
+              <Form.Control
+                as="select"
+                name="priority"
+                value={task.priority}
+                onChange={(e) => handleTaskChange(e)}
+              >
+                <option value="Baja">Baja</option>
+                <option value="Media">Media</option>
+                <option value="Alta">Alta</option>
+                <option value="Crítica">Crítica</option>
+              </Form.Control>
             </Form.Group>
             <Button variant="primary" type="submit" className="mt-3">
               Crear Tarea
