@@ -220,7 +220,10 @@ export default function ProjectDetails() {
       {/* ASOCIAR TAREAS */}
       <Modal
         show={associateTaskModal}
-        onHide={() => setAssociateTaskModal(false)}
+        onHide={() => {
+          setAssociateTaskModal(false);
+          setError({});
+        }}
         centered
       >
         <Modal.Header closeButton>

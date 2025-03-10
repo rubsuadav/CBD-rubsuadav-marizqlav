@@ -29,10 +29,10 @@ export default function CustomNavbar() {
             </Nav.Link>
           </Nav>
           <Nav className="ms-auto">
-            <Nav.Link href="#link" className="mx-2">
+            <Nav.Link onClick={() => navigate("/register")} className="mx-2">
               Registrarse
             </Nav.Link>
-            <Nav.Link href="#link" className="mx-2">
+            <Nav.Link onClick={() => navigate("/login")} className="mx-2">
               Iniciar Sesión
             </Nav.Link>
             <Nav.Link href="#link" className="mx-2">

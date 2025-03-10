@@ -1,4 +1,3 @@
-import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 // local imports
@@ -8,6 +7,8 @@ import Home from "./pages/Home";
 import Tasks from "./pages/Tasks";
 import Projects from "./pages/Projects";
 import TaskDetails from "./pages/TaskDetails";
+import Register from "./pages/Register";
+import Login from "./pages/Login";
 import ProjectDetails from "./pages/ProjectDetails";
 
 export default function App() {
@@ -24,6 +25,8 @@ export default function App() {
             path="/project/:projectId"
             element={<ProjectDetails />}
           ></Route>
+          <Route path="/register" element={<Register />}></Route>
+          <Route path="/login" element={<Login />}></Route>
         </Routes>
       </Container>
     </Router>

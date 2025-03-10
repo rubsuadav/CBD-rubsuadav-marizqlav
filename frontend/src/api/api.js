@@ -1,4 +1,4 @@
-import { API_URL } from "../config";
+import { API_AUTH_URL, API_URL } from "../config";
 
 export async function getTasks() {
   const response = await fetch(`${API_URL}/tasks`);
@@ -72,17 +72,6 @@ export async function createProject(project) {
   return { status: response.status, data: await response.json() };
 }
 
-export async function updateProjectStatus(projectId, status) {
-  const response = await fetch(`${API_URL}/project/${projectId}/status`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ status }),
-  });
-  return response.status;
-}
-
 export async function getProject(projectId) {
   const response = await fetch(`${API_URL}/project/${projectId}`);
   return response.json();
@@ -112,6 +101,28 @@ export async function asociateTaskToProject(projectId, taskIds) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ taskId: taskIds }),
+  });
+  return { status: response.status, data: await response.json() };
+}
+
+export async function register(user) {
+  const response = await fetch(`${API_AUTH_URL}/register`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(user),
+  });
+  return { status: response.status, data: await response.json() };
+}
+
+export async function login(user) {
+  const response = await fetch(`${API_AUTH_URL}/login`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(user),
   });
   return { status: response.status, data: await response.json() };
 }
