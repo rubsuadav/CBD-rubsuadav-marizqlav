@@ -126,3 +126,18 @@ export async function login(user) {
   });
   return { status: response.status, data: await response.json() };
 }
+
+export async function getUser(userId) {
+  const response = await fetch(`${API_URL}/user/${userId}`);
+  return response.json();
+}
+
+export async function getUserProjects(userId) {
+  const response = await fetch(`${API_URL}/user/${userId}/projects`);
+  return response.json();
+}
+
+export async function getUserTasks(userId) {
+  const response = await fetch(`${API_URL}/user/${userId}/tasks`);
+  return response.json();
+}

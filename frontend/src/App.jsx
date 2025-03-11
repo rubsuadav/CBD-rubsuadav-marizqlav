@@ -10,6 +10,7 @@ import TaskDetails from "./pages/TaskDetails";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import ProjectDetails from "./pages/ProjectDetails";
+import UserDetails from "./pages/UserDetails";
 
 export default function App() {
   return (
@@ -27,6 +28,7 @@ export default function App() {
           ></Route>
           <Route path="/register" element={<Register />}></Route>
           <Route path="/login" element={<Login />}></Route>
+          <Route path="/user/:userId/details" element={<UserDetails />}></Route>
         </Routes>
       </Container>
     </Router>
