@@ -41,7 +41,7 @@ export default function CustomNavbar() {
               Iniciar Sesión
             </Nav.Link>
             <Nav.Link onClick={() => navigateToProfile()} className="mx-2">
-              Ver Perfil 
+              Ver Perfil
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>

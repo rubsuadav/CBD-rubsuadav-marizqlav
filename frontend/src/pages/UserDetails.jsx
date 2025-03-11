@@ -1,9 +1,25 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { Row, Col, Card, ListGroup, Button, Modal, Form } from 'react-bootstrap';
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import {
+  Row,
+  Col,
+  Card,
+  ListGroup,
+  Button,
+  Modal,
+  Form,
+} from "react-bootstrap";
 
 // local imports
-import { getUser, getUserProjects, getUserTasks, getAllUsers, getTasks, assignTasksToUser, removeTasksFromUser } from '../api/api';
+import {
+  getUser,
+  getUserProjects,
+  getUserTasks,
+  getAllUsers,
+  getTasks,
+  assignTasksToUser,
+  removeTasksFromUser,
+} from "../api/api";
 
 export default function UserDetails() {
   const { userId } = useParams();
@@ -17,18 +33,9 @@ export default function UserDetails() {
   const [selectedTaskIds, setSelectedTaskIds] = useState([]);
 
   useEffect(() => {
-    async function fetchData() {
-      const userData = await getUser(userId);
-      console.log("userData", userData);
-      setUser(userData);
-      const userProjects = await getUserProjects(userId);
-      console.log("userProjects", userProjects);
-      setProjects(userProjects);
-      const userTasks = await getUserTasks(userId);
-      console.log("userTasks", userTasks);
-      setTasks(userTasks);
-    }
-    fetchData();
+    getUser(userId).then((data) => setUser(data));
+    getUserProjects(userId).then((data) => setProjects(data));
+    getUserTasks(userId).then((data) => setTasks(data));
   }, [userId]);
 
   useEffect(() => {
@@ -43,7 +50,7 @@ export default function UserDetails() {
     if (e.target.checked) {
       setSelectedTaskIds([...selectedTaskIds, taskId]);
     } else {
-      setSelectedTaskIds(selectedTaskIds.filter(id => id !== taskId));
+      setSelectedTaskIds(selectedTaskIds.filter((id) => id !== taskId));
     }
   }
 
@@ -58,7 +65,6 @@ export default function UserDetails() {
     }
 
     const { status, data } = await assignTasksToUser(selectedUserId, selectedTaskIds);
-    console.log("data", data);
     if (status === 200) {
       setShowAssignModal(false);
       alert("Tareas asignadas correctamente");
@@ -66,15 +72,14 @@ export default function UserDetails() {
       const updatedTasks = await getUserTasks(userId);
       setTasks(updatedTasks);
     } else {
-      alert("Error al asignar tareas");
+      alert(data.message);
     }
   }
 
   async function handleUnassignTask(taskId) {
-    const { status, data } = await removeTasksFromUser(userId, [taskId]);
-    console.log("data", data);
+    const { status } = await removeTasksFromUser(userId, [taskId]);
     if (status === 200) {
-      setTasks(tasks.filter(task => task._id !== taskId));
+      setTasks(tasks.filter((task) => task._id !== taskId));
       alert("Tarea desasignada correctamente");
     } else {
       alert("Error al desasignar tarea");
@@ -82,7 +87,10 @@ export default function UserDetails() {
   }
 
   return (
-    <div className="d-flex align-items-center justify-content-center" style={{ marginTop: "50px" }}>
+    <div
+      className="d-flex align-items-center justify-content-center"
+      style={{ marginTop: "50px" }}
+    >
       <Row className="justify-content-md-center w-100">
         <Col md="8">
           <Card className="shadow-lg">
@@ -98,7 +106,9 @@ export default function UserDetails() {
                 <ListGroup>
                   {projects.length > 0 ? (
                     projects.map((project) => (
-                      <ListGroup.Item key={project._id}>{project.name}</ListGroup.Item>
+                      <ListGroup.Item key={project._id}>
+                        {project.name}
+                      </ListGroup.Item>
                     ))
                   ) : (
                     <ListGroup.Item>No hay proyectos asociados</ListGroup.Item>
@@ -110,7 +120,10 @@ export default function UserDetails() {
                 <ListGroup>
                   {tasks.length > 0 ? (
                     tasks.map((task) => (
-                      <ListGroup.Item key={task._id} className="d-flex justify-content-between align-items-center">
+                      <ListGroup.Item
+                        key={task._id}
+                        className="d-flex justify-content-between align-items-center"
+                      >
                         {task.title}
                         <Button
                           variant="danger"
@@ -127,7 +140,10 @@ export default function UserDetails() {
                 </ListGroup>
               </Card.Text>
               <div className="text-center">
-                <Button variant="primary" onClick={() => setShowAssignModal(true)}>
+                <Button
+                  variant="primary"
+                  onClick={() => setShowAssignModal(true)}
+                >
                   Asignar Tareas
                 </Button>
               </div>

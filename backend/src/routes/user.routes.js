@@ -4,7 +4,8 @@ import {
   getUserById,
   assignTasksToUser,
   getUserTasks,
-  removeTasksFromUser,getUserProjects
+  removeTasksFromUser,
+  getUserProjects,
 } from "../controllers/user.controller.js";
 
 const router = Router();

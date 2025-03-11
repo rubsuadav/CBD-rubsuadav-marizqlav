@@ -47,14 +47,15 @@ export const removeTasksFromUser = async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    user.tasks = user.tasks.filter(taskId => !taskIds.includes(taskId.toString()));
+    user.tasks = user.tasks.filter(
+      (taskId) => !taskIds.includes(taskId.toString())
+    );
     await user.save();
     res.status(200).json({ message: "Tasks removed successfully" });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
-
 
 export const getUserTasks = async (req, res) => {
   try {

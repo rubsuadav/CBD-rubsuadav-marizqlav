@@ -14,10 +14,7 @@ export default function TaskDetails() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    getTask(taskId).then((data) => {
-      setTask(data);
-      console.log("Task data:", data); // Agregar console.log aquí
-    });
+    getTask(taskId).then((data) => setTask(data));
   }, [taskId, updateTaskModal]);
 
   function handleTaskChange(e) {
