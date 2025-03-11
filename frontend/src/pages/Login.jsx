@@ -36,7 +36,7 @@ export default function Login() {
         localStorage.setItem("userId", data.userId);
         localStorage.setItem("token", data.token);
         alert("Usuario logueado correctamente");
-        navigate("/user/details");
+        navigate(`/user/${data.userId}/details`);
         break;
       case 400:
         setError({ message: data.message });
