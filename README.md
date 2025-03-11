@@ -15,7 +15,7 @@ Si está usando Windows vaya a la sección de [WINDOWS](#WINDOWS), del contrario
 
 # WINDOWS
 
-2. - Renombrar el fichero .env.example a .env
+2. - Renombrar el fichero .env.example a .env (fichero ubicado en la carpeta backend).
 
 - Si **NO** tiene instalado MongoDB deberá seguir los pasos de la sección [INSTALAR MONGODB](#instalar-mongodb), si se tiene MongoDB instalado y en funcionamiento puede pasar al siguiente paso.
 - Si **NO** tiene Node instalado deberá de seguir los pasos de la sección [INSTALAR NODE](#instalar-node), si se tiene instalado Node puede irse directamente a la sección [EJECUTAR APP](#ejecutar-app)
@@ -44,7 +44,7 @@ La salida debe de devolver v22.X.X para Node y 10.9.2 para npm.
 
 5. - Abra la carpeta descomprimida si no la ha abierto aún y **ejecute** el script llamado **runWindows.bat** haciendo doble click en el fichero.
 
-     Ese script instalará las dependencias del backend, levantará el servidor de express en el puerto 3000 de manera automática en segundo plano e instalará las dependencias del frontend levantando en primer plano de manera automática la aplicación en el puerto 5173, abriendo la aplicación automáticamente en el navegador.
+   Ese script instalará las dependencias del backend, levantará el servidor de express en el puerto 3000 de manera automática en segundo plano e instalará las dependencias del frontend levantando en primer plano de manera automática la aplicación en el puerto 5173, abriendo la aplicación automáticamente en el navegador.
 
 # LINUX
 
@@ -60,14 +60,17 @@ cp .env.example .env
 
 ## INSTALAR MONGODB LINUX
 
-En la misma terminal en la que ejecutó el paso 2 ejecutar estos comandos:
+Deberá ingresar al siguiente enlace: https://www.mongodb.com/try/download/community, seleccione la plataforma correspondiente en función de la versión de Ubuntu que tenga instalada en su equipo. Esto le descargará un fichero .deb con el servidor de Mongodb.
+Deberá hacer lo mismo con MongoDB Compass, puedede descargar el fichero .deb desde este enlace https://www.mongodb.com/try/download/compass.
+
+Tras las descargas deberá de dirigirse al directorio Descargas o Downloads, abrir una terminar en ese directorio y ejecutar estos comandos:
 
 ```
 sudo dpkg -i mongodb-org-server_8.0.5_amd64.deb
 sudo systemctl status mongod.service
 q
 sudo systemctl start mongod.service
-sudo dpkg -i mongodb-compass_1.45.4amd64.deb
+sudo dpkg -i mongodb-compass_1.45.4_amd64.deb
 mongodb-compass
 ```
 
