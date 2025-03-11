@@ -14,6 +14,8 @@ import { useNavigate } from "react-router-dom";
 import { createProject, getProjects } from "../api/api";
 
 export default function Projects() {
+  const token = localStorage.getItem("token");
+
   // LISTADO
   const [projects, setProjects] = useState([]);
   useEffect(() => {
@@ -55,13 +57,17 @@ export default function Projects() {
 
   return (
     <div className="d-flex flex-column align-items-center">
-      <Button
-        variant="primary"
-        className="mb-5 mt-5"
-        onClick={() => setShowProjectModal(true)}
-      >
-        Crear Proyecto
-      </Button>
+      {token ? (
+        <Button
+          variant="primary"
+          className="mb-5 mt-5"
+          onClick={() => setShowProjectModal(true)}
+        >
+          Crear Proyecto
+        </Button>
+      ) : (
+        <div className="mb-5 mt-5"></div>
+      )}
 
       <Container>
         <Row>
@@ -92,51 +98,53 @@ export default function Projects() {
       </Container>
 
       {/* CREACION PROYECTOS */}
-      <Modal
-        show={showProjectModal}
-        onHide={() => {
-          setShowProjectModal(false);
-          setProject({ name: "", description: "" });
-          setError({});
-        }}
-        centered
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>Crear Proyecto</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form onSubmit={handleProjectSubmit}>
-            <Form.Group>
-              <Form.Label>Nombre del Proyecto</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Ingrese el nombre del proyecto"
-                name="name"
-                value={project.name}
-                onChange={(e) => handleProjectChange(e)}
-              />
-            </Form.Group>
-            <Form.Group className="mt-3">
-              <Form.Label>Descripción</Form.Label>
-              <Form.Control
-                as="textarea"
-                rows={4}
-                placeholder="Ingrese la descripción del proyecto"
-                name="description"
-                value={project.description}
-                onChange={(e) => handleProjectChange(e)}
-              />
-            </Form.Group>
-            <Button variant="primary" type="submit" className="mt-3">
-              Crear Proyecto
-            </Button>
-          </Form>
+      {token && (
+        <Modal
+          show={showProjectModal}
+          onHide={() => {
+            setShowProjectModal(false);
+            setProject({ name: "", description: "" });
+            setError({});
+          }}
+          centered
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Crear Proyecto</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form onSubmit={handleProjectSubmit}>
+              <Form.Group>
+                <Form.Label>Nombre del Proyecto</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Ingrese el nombre del proyecto"
+                  name="name"
+                  value={project.name}
+                  onChange={(e) => handleProjectChange(e)}
+                />
+              </Form.Group>
+              <Form.Group className="mt-3">
+                <Form.Label>Descripción</Form.Label>
+                <Form.Control
+                  as="textarea"
+                  rows={4}
+                  placeholder="Ingrese la descripción del proyecto"
+                  name="description"
+                  value={project.description}
+                  onChange={(e) => handleProjectChange(e)}
+                />
+              </Form.Group>
+              <Button variant="primary" type="submit" className="mt-3">
+                Crear Proyecto
+              </Button>
+            </Form>
 
-          {error.message && (
-            <p className="text-danger text-center mt-3">{error.message}</p>
-          )}
-        </Modal.Body>
-      </Modal>
+            {error.message && (
+              <p className="text-danger text-center mt-3">{error.message}</p>
+            )}
+          </Modal.Body>
+        </Modal>
+      )}
     </div>
   );
 }

@@ -21,6 +21,7 @@ export default function ProjectDetails() {
   const [selectedTasks, setSelectedTasks] = useState([]);
   const [error, setError] = useState({});
   const navigate = useNavigate();
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
     getProject(projectId).then((data) => setProject(data));
@@ -34,8 +35,8 @@ export default function ProjectDetails() {
 
   async function handleUpdateProject(e) {
     e.preventDefault();
-    if (!project.name || !project.description || !project.status) {
-      setError({ message: "All fields are required" });
+    if (!project.name) {
+      setError({ message: "Name is required" });
       return;
     }
     if (project.name.length < 3 || project.name.length > 50) {
@@ -117,140 +118,151 @@ export default function ProjectDetails() {
                   )}
                 </ul>
               </Card.Text>
-              <div className="d-flex justify-content-between">
-                <Button
-                  variant="info"
-                  onClick={() => setUpdateProjectModal(true)}
-                >
-                  Actualizar
-                </Button>
-                <Button
-                  variant="danger"
-                  onClick={() => setShowDeleteModal(true)}
-                >
-                  Eliminar
-                </Button>
-                <Button
-                  variant="primary"
-                  onClick={() => setAssociateTaskModal(true)}
-                >
-                  Asociar Tareas
-                </Button>
-              </div>
+              {token && (
+                <div className="d-flex justify-content-between">
+                  <Button
+                    variant="info"
+                    onClick={() => setUpdateProjectModal(true)}
+                  >
+                    Actualizar
+                  </Button>
+                  <Button
+                    variant="danger"
+                    onClick={() => setShowDeleteModal(true)}
+                  >
+                    Eliminar
+                  </Button>
+                  <Button
+                    variant="primary"
+                    onClick={() => setAssociateTaskModal(true)}
+                  >
+                    Asociar Tareas
+                  </Button>
+                </div>
+              )}
             </Card.Body>
           </Card>
         </Col>
       </Row>
 
       {/* ACTUALIZAR PROYECTO */}
-      <Modal
-        show={updateProjectModal}
-        onHide={() => setUpdateProjectModal(false)}
-        centered
-      >
-        <Modal.Header closeButton></Modal.Header>
-        <Modal.Body>
-          <Form onSubmit={handleUpdateProject}>
-            <Form.Group>
-              <Form.Label>Nombre del Proyecto</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Ingrese el nombre del proyecto"
-                name="name"
-                value={project.name}
-                onChange={(e) => handleProjectChange(e)}
-              />
-            </Form.Group>
-            <Form.Group className="mt-3">
-              <Form.Label>Descripcion</Form.Label>
-              <Form.Control
-                as="textarea"
-                rows={4}
-                placeholder="Ingrese la descripción del proyecto"
-                name="description"
-                value={project.description}
-                onChange={(e) => handleProjectChange(e)}
-              />
-            </Form.Group>
-            <Form.Group className="mt-3">
-              <Form.Label>Estado</Form.Label>
-              <Form.Control
-                as="select"
-                name="status"
-                value={project.status}
-                onChange={(e) => handleProjectChange(e)}
-              >
-                <option value="Pendiente">Pendiente</option>
-                <option value="En progreso">En progreso</option>
-                <option value="Completado">Completado</option>
-              </Form.Control>
-            </Form.Group>
-            <Button variant="primary" type="submit" className="mt-3">
-              Actualizar
-            </Button>
-          </Form>
-          {error.message && (
-            <p className="text-danger text-center mt-3">{error.message}</p>
-          )}
-        </Modal.Body>
-      </Modal>
+      {token && (
+        <Modal
+          show={updateProjectModal}
+          onHide={() => setUpdateProjectModal(false)}
+          centered
+        >
+          <Modal.Header closeButton></Modal.Header>
+          <Modal.Body>
+            <Form onSubmit={handleUpdateProject}>
+              <Form.Group>
+                <Form.Label>Nombre del Proyecto</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Ingrese el nombre del proyecto"
+                  name="name"
+                  value={project.name}
+                  onChange={(e) => handleProjectChange(e)}
+                />
+              </Form.Group>
+              <Form.Group className="mt-3">
+                <Form.Label>Descripcion</Form.Label>
+                <Form.Control
+                  as="textarea"
+                  rows={4}
+                  placeholder="Ingrese la descripción del proyecto"
+                  name="description"
+                  value={project.description}
+                  onChange={(e) => handleProjectChange(e)}
+                />
+              </Form.Group>
+              <Form.Group className="mt-3">
+                <Form.Label>Estado</Form.Label>
+                <Form.Control
+                  as="select"
+                  name="status"
+                  value={project.status}
+                  onChange={(e) => handleProjectChange(e)}
+                >
+                  <option value="Pendiente">Pendiente</option>
+                  <option value="En progreso">En progreso</option>
+                  <option value="Completado">Completado</option>
+                </Form.Control>
+              </Form.Group>
+              <Button variant="primary" type="submit" className="mt-3">
+                Actualizar
+              </Button>
+            </Form>
+            {error.message && (
+              <p className="text-danger text-center mt-3">{error.message}</p>
+            )}
+          </Modal.Body>
+        </Modal>
+      )}
 
       {/* ELIMINAR PROYECTO */}
-      <Modal
-        show={showDeleteModal}
-        onHide={() => setShowDeleteModal(false)}
-        centered
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>Confirmar Eliminación</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <p>¿Está seguro de que desea eliminar este proyecto?</p>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowDeleteModal(false)}>
-            Cancelar
-          </Button>
-          <Button variant="danger" onClick={handleDeleteProject}>
-            Eliminar
-          </Button>
-        </Modal.Footer>
-      </Modal>
+      {token && (
+        <Modal
+          show={showDeleteModal}
+          onHide={() => setShowDeleteModal(false)}
+          centered
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Confirmar Eliminación</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <p>¿Está seguro de que desea eliminar este proyecto?</p>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button
+              variant="secondary"
+              onClick={() => setShowDeleteModal(false)}
+            >
+              Cancelar
+            </Button>
+            <Button variant="danger" onClick={handleDeleteProject}>
+              Eliminar
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      )}
 
       {/* ASOCIAR TAREAS */}
-      <Modal
-        show={associateTaskModal}
-        onHide={() => {
-          setAssociateTaskModal(false);
-          setError({});
-        }}
-        centered
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>Asociar Tareas</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form onSubmit={handleAssociateTasks}>
-            {tasks.length > 0 &&
-              tasks.map((task) => (
-                <Form.Group key={task._id} controlId={`task-${task._id}`}>
-                  <Form.Check
-                    type="checkbox"
-                    label={task.title}
-                    value={task._id}
-                    onChange={handleTaskSelection}
-                  />
-                </Form.Group>
-              ))}
-            <Button variant="primary" type="submit" className="mt-3">
-              Asociar Tareas
-            </Button>
-          </Form>
-          {error.message && (
-            <p className="text-danger text-center mt-3">{error.message}</p>
-          )}
-        </Modal.Body>
-      </Modal>
+      {token && (
+        <Modal
+          show={associateTaskModal}
+          onHide={() => {
+            setAssociateTaskModal(false);
+            setError({});
+          }}
+          centered
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Asociar Tareas</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form onSubmit={handleAssociateTasks}>
+              {tasks.length > 0 &&
+                tasks.map((task) => (
+                  <Form.Group key={task._id} controlId={`task-${task._id}`}>
+                    <Form.Check
+                      type="checkbox"
+                      label={task.title}
+                      value={task._id}
+                      onChange={handleTaskSelection}
+                    />
+                  </Form.Group>
+                ))}
+              <Button variant="primary" type="submit" className="mt-3">
+                Asociar Tareas
+              </Button>
+            </Form>
+            {error.message && (
+              <p className="text-danger text-center mt-3">{error.message}</p>
+            )}
+          </Modal.Body>
+        </Modal>
+      )}
     </div>
   );
 }

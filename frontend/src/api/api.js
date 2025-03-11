@@ -1,5 +1,7 @@
 import { API_AUTH_URL, API_URL } from "../config";
 
+const token = localStorage.getItem("token");
+
 export async function getTasks() {
   const response = await fetch(`${API_URL}/tasks`);
   return response.json();
@@ -10,6 +12,7 @@ export async function createTask(task) {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      Authorization: `${token}`,
     },
     body: JSON.stringify(task),
   });
@@ -44,6 +47,7 @@ export async function updateTask(taskId, task) {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
+      Authorization: `${token}`,
     },
     body: JSON.stringify(task),
   });
@@ -53,6 +57,9 @@ export async function updateTask(taskId, task) {
 export async function deleteTask(taskId) {
   await fetch(`${API_URL}/task/${taskId}`, {
     method: "DELETE",
+    headers: {
+      Authorization: `${token}`,
+    },
   });
 }
 
@@ -66,6 +73,7 @@ export async function createProject(project) {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      Authorization: `${token}`,
     },
     body: JSON.stringify(project),
   });
@@ -82,6 +90,7 @@ export async function updateProject(projectId, project) {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
+      Authorization: `${token}`,
     },
     body: JSON.stringify(project),
   });
@@ -91,6 +100,9 @@ export async function updateProject(projectId, project) {
 export async function deleteProject(projectId) {
   await fetch(`${API_URL}/project/${projectId}`, {
     method: "DELETE",
+    headers: {
+      Authorization: `${token}`,
+    },
   });
 }
 
@@ -99,6 +111,7 @@ export async function asociateTaskToProject(projectId, taskIds) {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      Authorization: `${token}`,
     },
     body: JSON.stringify({ taskId: taskIds }),
   });
@@ -128,7 +141,11 @@ export async function login(user) {
 }
 
 export async function getUser(userId) {
-  const response = await fetch(`${API_URL}/user/${userId}`);
+  const response = await fetch(`${API_URL}/user/${userId}`, {
+    headers: {
+      Authorization: `${token}`,
+    },
+  });
   return response.json();
 }
 
@@ -152,6 +169,7 @@ export async function assignTasksToUser(userId, taskIds) {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      Authorization: `${token}`,
     },
     body: JSON.stringify({ userId, taskIds }),
   });
@@ -163,6 +181,7 @@ export async function removeTasksFromUser(userId, taskIds) {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      Authorization: `${token}`,
     },
     body: JSON.stringify({ userId, taskIds }),
   });

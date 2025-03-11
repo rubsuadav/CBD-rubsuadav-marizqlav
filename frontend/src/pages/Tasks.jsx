@@ -15,6 +15,8 @@ import { useNavigate } from "react-router-dom";
 import { createTask, getTasks, updateTaskStatus } from "../api/api";
 
 export default function Tasks() {
+  const token = localStorage.getItem("token");
+
   // LISTADO
   const [tasks, setTasks] = useState([]);
   useEffect(() => {
@@ -94,13 +96,17 @@ export default function Tasks() {
 
   return (
     <div className="d-flex flex-column align-items-center">
-      <Button
-        variant="primary"
-        className="mb-5 mt-5"
-        onClick={() => setShowTaskModal(true)}
-      >
-        Crear Tarea
-      </Button>
+      {token ? (
+        <Button
+          variant="primary"
+          className="mb-5 mt-5"
+          onClick={() => setShowTaskModal(true)}
+        >
+          Crear Tarea
+        </Button>
+      ) : (
+        <div className="mb-5 mt-5"></div>
+      )}
 
       <DragDropContext onDragEnd={onDragEnd}>
         <Container>
@@ -160,65 +166,67 @@ export default function Tasks() {
       </DragDropContext>
 
       {/* CREACION TAREAS */}
-      <Modal
-        show={showTaskModal}
-        onHide={() => {
-          setShowTaskModal(false);
-          setTask({ title: "", description: "" });
-          setError({});
-        }}
-        centered
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>Crear Tarea</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form onSubmit={handleTaskSubmit}>
-            <Form.Group>
-              <Form.Label>Nombre de la Tarea</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Ingrese el nombre de la tarea"
-                name="title"
-                value={task.title}
-                onChange={(e) => handleTaskChange(e)}
-              />
-            </Form.Group>
-            <Form.Group className="mt-3">
-              <Form.Label>Descripcion</Form.Label>
-              <Form.Control
-                as="textarea"
-                rows={4}
-                placeholder="Ingrese la descripción de la tarea"
-                name="description"
-                value={task.description}
-                onChange={(e) => handleTaskChange(e)}
-              />
-            </Form.Group>
-            <Form.Group className="mt-3">
-              <Form.Label>Prioridad</Form.Label>
-              <Form.Control
-                as="select"
-                name="priority"
-                value={task.priority}
-                onChange={(e) => handleTaskChange(e)}
-              >
-                <option value="Baja">Baja</option>
-                <option value="Media">Media</option>
-                <option value="Alta">Alta</option>
-                <option value="Crítica">Crítica</option>
-              </Form.Control>
-            </Form.Group>
-            <Button variant="primary" type="submit" className="mt-3">
-              Crear Tarea
-            </Button>
-          </Form>
+      {token && (
+        <Modal
+          show={showTaskModal}
+          onHide={() => {
+            setShowTaskModal(false);
+            setTask({ title: "", description: "" });
+            setError({});
+          }}
+          centered
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Crear Tarea</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form onSubmit={handleTaskSubmit}>
+              <Form.Group>
+                <Form.Label>Nombre de la Tarea</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Ingrese el nombre de la tarea"
+                  name="title"
+                  value={task.title}
+                  onChange={(e) => handleTaskChange(e)}
+                />
+              </Form.Group>
+              <Form.Group className="mt-3">
+                <Form.Label>Descripcion</Form.Label>
+                <Form.Control
+                  as="textarea"
+                  rows={4}
+                  placeholder="Ingrese la descripción de la tarea"
+                  name="description"
+                  value={task.description}
+                  onChange={(e) => handleTaskChange(e)}
+                />
+              </Form.Group>
+              <Form.Group className="mt-3">
+                <Form.Label>Prioridad</Form.Label>
+                <Form.Control
+                  as="select"
+                  name="priority"
+                  value={task.priority}
+                  onChange={(e) => handleTaskChange(e)}
+                >
+                  <option value="Baja">Baja</option>
+                  <option value="Media">Media</option>
+                  <option value="Alta">Alta</option>
+                  <option value="Crítica">Crítica</option>
+                </Form.Control>
+              </Form.Group>
+              <Button variant="primary" type="submit" className="mt-3">
+                Crear Tarea
+              </Button>
+            </Form>
 
-          {error.message && (
-            <p className="text-danger text-center mt-3">{error.message}</p>
-          )}
-        </Modal.Body>
-      </Modal>
+            {error.message && (
+              <p className="text-danger text-center mt-3">{error.message}</p>
+            )}
+          </Modal.Body>
+        </Modal>
+      )}
     </div>
   );
 }
