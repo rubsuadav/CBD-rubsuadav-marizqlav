@@ -32,6 +32,8 @@ export default function App() {
       if (isPublicRoute && !localStorage.getItem("token")) {
         navigate("/register");
       }
+
+      if (location.pathname === "/") navigate("/tasks");
     }, [navigate, location]);
 
     return null;
