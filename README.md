@@ -23,7 +23,9 @@ Si está usando Windows vaya a la sección de [WINDOWS](#WINDOWS), del contrario
 ## INSTALAR MONGODB
 
 Para instalar MongoDB deberá seguir los pasos descritos en la carpeta 02- No SQL - MongoDB del laboratorio --> 02- Instalación de MongoDB.
+
 <ins>NOTA</ins>: Tras su instalación deberá de crear la BBDD llamada **proyecto** con cualquier nombre de la colección (esa colección no se usará, sólo es necesaria para crear la BBDD).
+
 Si quiere poner otro nombre de BBDD puede hacerlo, pero si lo hace entonces debe de dirigirse al fichero .env y cambiar **DB_NAME=proyecto** por **DB_NAME=NOMBREDB**, donde NOMBREDB es el nombre de la BBDD creada desde MongoDB Compass.
 
 ## INSTALAR NODE
@@ -41,6 +43,7 @@ La salida debe de devolver v22.X.X para Node y 10.9.2 para npm.
 ## EJECUTAR APP
 
 5. - Abra la carpeta descomprimida si no la ha abierto aún y **ejecute** el script llamado **runWindows.bat** haciendo doble click en el fichero.
+
      Ese script instalará las dependencias del backend, levantará el servidor de express en el puerto 3000 de manera automática en segundo plano e instalará las dependencias del frontend levantando en primer plano de manera automática la aplicación en el puerto 5173, abriendo la aplicación automáticamente en el navegador.
 
 # LINUX
