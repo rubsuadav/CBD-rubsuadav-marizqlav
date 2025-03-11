@@ -4,7 +4,7 @@ import {
   getUserById,
   assignTasksToUser,
   getUserTasks,
-  removeTasksFromUser,
+  removeTasksFromUser,getUserProjects
 } from "../controllers/user.controller.js";
 
 const router = Router();
@@ -14,5 +14,6 @@ router.get("/user/:id", getUserById);
 router.post("/users/assign-task", assignTasksToUser);
 router.post("/users/remove-tasks", removeTasksFromUser);
 router.get("/user/:id/tasks", getUserTasks);
+router.get("/user/:id/projects", getUserProjects);
 
 export default router;
