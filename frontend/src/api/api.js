@@ -126,3 +126,45 @@ export async function login(user) {
   });
   return { status: response.status, data: await response.json() };
 }
+
+export async function getUser(userId) {
+  const response = await fetch(`${API_URL}/user/${userId}`);
+  return response.json();
+}
+
+export async function getAllUsers() {
+  const response = await fetch(`${API_URL}/users`);
+  return response.json();
+}
+
+export async function getUserProjects(userId) {
+  const response = await fetch(`${API_URL}/user/${userId}/projects`);
+  return response.json();
+}
+
+export async function getUserTasks(userId) {
+  const response = await fetch(`${API_URL}/user/${userId}/tasks`);
+  return response.json();
+}
+
+export async function assignTasksToUser(userId, taskIds) {
+  const response = await fetch(`${API_URL}/users/assign-task`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ userId, taskIds }),
+  });
+  return { status: response.status, data: await response.json() };
+}
+
+export async function removeTasksFromUser(userId, taskIds) {
+  const response = await fetch(`${API_URL}/users/remove-tasks`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ userId, taskIds }),
+  });
+  return { status: response.status, data: await response.json() };
+}

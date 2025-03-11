@@ -7,6 +7,11 @@ import SearchTasks from "./SearchTasks";
 
 export default function CustomNavbar() {
   const navigate = useNavigate();
+  const userId = localStorage.getItem("userId");
+
+  function navigateToProfile() {
+    navigate(`/user/${userId}/details`);
+  }
 
   return (
     <Navbar expand="lg" className="bg-info bg-gradient" sticky="top">
@@ -35,7 +40,7 @@ export default function CustomNavbar() {
             <Nav.Link onClick={() => navigate("/login")} className="mx-2">
               Iniciar Sesión
             </Nav.Link>
-            <Nav.Link href="#link" className="mx-2">
+            <Nav.Link onClick={() => navigateToProfile()} className="mx-2">
               Ver Perfil
             </Nav.Link>
           </Nav>
