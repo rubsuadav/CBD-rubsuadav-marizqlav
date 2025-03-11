@@ -9,13 +9,13 @@ export default function TaskDetails() {
   const { taskId } = useParams();
   const [task, setTask] = useState({});
   const [updateTaskModal, setUpdateTaskModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [error, setError] = useState({});
+  const navigate = useNavigate();
 
   useEffect(() => {
     getTask(taskId).then((data) => setTask(data));
   }, [taskId, updateTaskModal]);
-
-  // ACTUALIZAR TAREA
-  const [error, setError] = useState({});
 
   function handleTaskChange(e) {
     setError({});
@@ -55,10 +55,6 @@ export default function TaskDetails() {
         break;
     }
   }
-
-  // ELIMINAR TAREA
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const navigate = useNavigate();
 
   async function handleDeleteTask() {
     await deleteTask(taskId);
