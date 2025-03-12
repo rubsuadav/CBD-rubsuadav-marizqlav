@@ -79,7 +79,7 @@ NOTA: SI LE AVISA DE QUE DEBE DE INTRODUCIR LA CONTRASEÑA PARA SUDO, DEBE DE IN
 Estos comandos instalan la versión LTS 8 del servicio de MongoDB, comprueba si se está ejecutando el servicio y si no lo está lo arranca, finalmente instala el GUI de MongoDB Compass para la iteracción con MongoDB.
 
 <ins>NOTA</ins>: Tras su instalación deberá de crear la BBDD llamada **proyecto** con cualquier nombre de la colección (esa colección no se usará, sólo es necesaria para crear la BBDD).
-Si quiere poner otro nombre de BBDD puede hacerlo, pero si lo hace entonces debe de ejecutar el comando **sudo nano .env**, cambiar **DB_NAME=proyecto** por **DB_NAME=NOMBREDB**, guardar el fichero y salir del editor nano, donde NOMBREDB es el nombre de la BBDD creada desde MongoDB Compass.
+Si quiere poner otro nombre de BBDD puede hacerlo, pero si lo hace entonces debe de ejecutar el comando **nano .env**, cambiar **DB_NAME=proyecto** por **DB_NAME=NOMBREDB**, guardar el fichero y salir del editor nano, donde NOMBREDB es el nombre de la BBDD creada desde MongoDB Compass.
 
 ## INSTALAR NODE LINUX
 
