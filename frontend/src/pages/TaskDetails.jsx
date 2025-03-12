@@ -12,6 +12,7 @@ export default function TaskDetails() {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [error, setError] = useState({});
   const navigate = useNavigate();
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
     getTask(taskId).then((data) => setTask(data));
@@ -80,97 +81,109 @@ export default function TaskDetails() {
               <Card.Text>
                 <strong>Prioridad:</strong> {task.priority}
               </Card.Text>
-              <div className="d-flex justify-content-between">
-                <Button variant="info" onClick={() => setUpdateTaskModal(true)}>
-                  Actualizar
-                </Button>
-                <Button
-                  variant="danger"
-                  onClick={() => setShowDeleteModal(true)}
-                >
-                  Eliminar
-                </Button>
-              </div>
+              {token && (
+                <div className="d-flex justify-content-between">
+                  <Button
+                    variant="info"
+                    onClick={() => setUpdateTaskModal(true)}
+                  >
+                    Actualizar
+                  </Button>
+                  <Button
+                    variant="danger"
+                    onClick={() => setShowDeleteModal(true)}
+                  >
+                    Eliminar
+                  </Button>
+                </div>
+              )}
             </Card.Body>
           </Card>
         </Col>
       </Row>
 
       {/* ACTUALIZAR TAREA */}
-      <Modal
-        show={updateTaskModal}
-        onHide={() => setUpdateTaskModal(false)}
-        centered
-      >
-        <Modal.Header closeButton></Modal.Header>
-        <Modal.Body>
-          <Form onSubmit={handleUpdateTask}>
-            <Form.Group>
-              <Form.Label>Nombre de la Tarea</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Ingrese el nombre de la tarea"
-                name="title"
-                value={task.title}
-                onChange={(e) => handleTaskChange(e)}
-              />
-            </Form.Group>
-            <Form.Group className="mt-3">
-              <Form.Label>Descripcion</Form.Label>
-              <Form.Control
-                as="textarea"
-                rows={4}
-                placeholder="Ingrese la descripción de la tarea"
-                name="description"
-                value={task.description}
-                onChange={(e) => handleTaskChange(e)}
-              />
-            </Form.Group>
-            <Form.Group className="mt-3">
-              <Form.Label>Prioridad</Form.Label>
-              <Form.Control
-                as="select"
-                name="priority"
-                value={task.priority}
-                onChange={(e) => handleTaskChange(e)}
-              >
-                <option value="Baja">Baja</option>
-                <option value="Media">Media</option>
-                <option value="Alta">Alta</option>
-                <option value="Crítica">Crítica</option>
-              </Form.Control>
-            </Form.Group>
-            <Button variant="primary" type="submit" className="mt-3">
-              Actualizar
-            </Button>
-          </Form>
-          {error.message && (
-            <p className="text-danger text-center mt-3">{error.message}</p>
-          )}
-        </Modal.Body>
-      </Modal>
+      {token && (
+        <Modal
+          show={updateTaskModal}
+          onHide={() => setUpdateTaskModal(false)}
+          centered
+        >
+          <Modal.Header closeButton></Modal.Header>
+          <Modal.Body>
+            <Form onSubmit={handleUpdateTask}>
+              <Form.Group>
+                <Form.Label>Nombre de la Tarea</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Ingrese el nombre de la tarea"
+                  name="title"
+                  value={task.title}
+                  onChange={(e) => handleTaskChange(e)}
+                />
+              </Form.Group>
+              <Form.Group className="mt-3">
+                <Form.Label>Descripcion</Form.Label>
+                <Form.Control
+                  as="textarea"
+                  rows={4}
+                  placeholder="Ingrese la descripción de la tarea"
+                  name="description"
+                  value={task.description}
+                  onChange={(e) => handleTaskChange(e)}
+                />
+              </Form.Group>
+              <Form.Group className="mt-3">
+                <Form.Label>Prioridad</Form.Label>
+                <Form.Control
+                  as="select"
+                  name="priority"
+                  value={task.priority}
+                  onChange={(e) => handleTaskChange(e)}
+                >
+                  <option value="Baja">Baja</option>
+                  <option value="Media">Media</option>
+                  <option value="Alta">Alta</option>
+                  <option value="Crítica">Crítica</option>
+                </Form.Control>
+              </Form.Group>
+              <Button variant="primary" type="submit" className="mt-3">
+                Actualizar
+              </Button>
+            </Form>
+            {error.message && (
+              <p className="text-danger text-center mt-3">{error.message}</p>
+            )}
+          </Modal.Body>
+        </Modal>
+      )}
 
       {/* ELIMINAR TAREA */}
-      <Modal
-        show={showDeleteModal}
-        onHide={() => setShowDeleteModal(false)}
-        centered
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>Confirmar Eliminación</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <p>¿Está seguro de que desea eliminar esta tarea?</p>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowDeleteModal(false)}>
-            Cancelar
-          </Button>
-          <Button variant="danger" onClick={handleDeleteTask}>
-            Eliminar
-          </Button>
-        </Modal.Footer>
-      </Modal>
+      {token && (
+        <Modal
+          show={showDeleteModal}
+          onHide={() => setShowDeleteModal(false)}
+          centered
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Confirmar Eliminación</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <p>¿Está seguro de que desea eliminar esta tarea?</p>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button
+              variant="secondary"
+              onClick={() => setShowDeleteModal(false)}
+            >
+              Cancelar
+            </Button>
+            <Button variant="danger" onClick={handleDeleteTask}>
+              Eliminar
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      )}
     </div>
   );
 }

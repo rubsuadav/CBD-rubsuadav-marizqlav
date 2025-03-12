@@ -20,7 +20,7 @@ export const register = async (req, res) => {
     user.password = await bcrypt.hash(password, 10);
     await user.save();
     const token = jwt.sign({ userId: user._id }, "secretKey", {
-      expiresIn: "1d",
+      expiresIn: "1y",
     });
     return res.status(201).json({ userId: user._id, token });
   } catch (error) {
@@ -39,7 +39,7 @@ export const login = async (req, res) => {
       return res.status(400).json({ message: "Invalid password" });
 
     const token = jwt.sign({ userId: user._id }, "secretKey", {
-      expiresIn: "1d",
+      expiresIn: "1y",
     });
     return res.status(200).json({ userId: user._id, token });
   } catch (error) {
