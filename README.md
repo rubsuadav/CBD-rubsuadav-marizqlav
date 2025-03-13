@@ -24,10 +24,6 @@ Si está usando Windows vaya a la sección de [WINDOWS](#WINDOWS), del contrario
 
 Para instalar MongoDB deberá seguir los pasos descritos en la carpeta 02- No SQL - MongoDB del laboratorio --> 02- Instalación de MongoDB.
 
-<ins>NOTA</ins>: Tras su instalación deberá de crear la BBDD llamada **proyecto** con cualquier nombre de la colección (esa colección no se usará, sólo es necesaria para crear la BBDD).
-
-Si quiere poner otro nombre de BBDD puede hacerlo, pero si lo hace entonces debe de dirigirse al fichero .env y cambiar **DB_NAME=proyecto** por **DB_NAME=NOMBREDB**, donde NOMBREDB es el nombre de la BBDD creada desde MongoDB Compass.
-
 ## INSTALAR NODE
 
 3. - Instalar Node 22, para ello haga click en el siguiente enlace: https://nodejs.org/dist/v22.14.0/node-v22.14.0-x64.msi y siga las instrucciones del instalador.
@@ -77,9 +73,6 @@ mongodb-compass
 NOTA: SI LE AVISA DE QUE DEBE DE INTRODUCIR LA CONTRASEÑA PARA SUDO, DEBE DE INGRESAR LA QUE ELIGIÓ CUANDO SE INSTALÓ EL S.O.
 
 Estos comandos instalan la versión LTS 8 del servicio de MongoDB, comprueba si se está ejecutando el servicio y si no lo está lo arranca, finalmente instala el GUI de MongoDB Compass para la iteracción con MongoDB.
-
-<ins>NOTA</ins>: Tras su instalación deberá de crear la BBDD llamada **proyecto** con cualquier nombre de la colección (esa colección no se usará, sólo es necesaria para crear la BBDD).
-Si quiere poner otro nombre de BBDD puede hacerlo, pero si lo hace entonces debe de ejecutar el comando **nano .env**, cambiar **DB_NAME=proyecto** por **DB_NAME=NOMBREDB**, guardar el fichero y salir del editor nano, donde NOMBREDB es el nombre de la BBDD creada desde MongoDB Compass.
 
 ## INSTALAR NODE LINUX
 
