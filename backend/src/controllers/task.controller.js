@@ -4,7 +4,6 @@ import {
   handleValidateUniqueTask,
   handleValidationErrors,
 } from "../validators/validate.js";
-import { getStatusTask, getPriorityTask } from "../utils/utils.js";
 
 export const createTask = async (req, res) => {
   if (await handleValidateUniqueTask(req.body.title, res)) return;
@@ -26,48 +25,6 @@ export const getAllTasks = async (_req, res) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-};
-
-export const getPendingTasks = async (_req, res) => {
-  const tasks = await getStatusTask("Pendiente");
-  if (tasks.message) return res.status(404).json(tasks);
-  res.status(200).json(tasks);
-};
-
-export const getInProgressTasks = async (_req, res) => {
-  const tasks = await getStatusTask("En Progreso");
-  if (tasks.message) return res.status(404).json(tasks);
-  res.status(200).json(tasks);
-};
-
-export const getCompletedTasks = async (_req, res) => {
-  const tasks = await getStatusTask("Completada");
-  if (tasks.message) return res.status(404).json(tasks);
-  res.status(200).json(tasks);
-};
-
-export const getLowPriorityTasks = async (_req, res) => {
-  const tasks = await getPriorityTask("Baja");
-  if (tasks.message) return res.status(404).json(tasks);
-  res.status(200).json(tasks);
-};
-
-export const getMediumPriorityTasks = async (_req, res) => {
-  const tasks = await getPriorityTask("Media");
-  if (tasks.message) return res.status(404).json(tasks);
-  res.status(200).json(tasks);
-};
-
-export const getHighPriorityTasks = async (_req, res) => {
-  const tasks = await getPriorityTask("Alta");
-  if (tasks.message) return res.status(404).json(tasks);
-  res.status(200).json(tasks);
-};
-
-export const getCriticalPriorityTasks = async (_req, res) => {
-  const tasks = await getPriorityTask("Crítica");
-  if (tasks.message) return res.status(404).json(tasks);
-  res.status(200).json(tasks);
 };
 
 export const getTaskById = async (req, res) => {
@@ -120,7 +77,8 @@ export const deleteTask = async (req, res) => {
 
 export const searchTasksByPriority = async (req, res) => {
   const priority = req.query.priority;
-  if (!priority) return res.status(400).json({ message: "priority is required" });
+  if (!priority)
+    return res.status(400).json({ message: "priority is required" });
   try {
     const tasks = await Task.find({ priority: { $eq: priority } });
     res.status(200).json(tasks);

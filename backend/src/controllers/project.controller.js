@@ -1,6 +1,6 @@
 import { Project } from "../models/project.js";
 import { Task } from "../models/task.js";
-import { getStatusProject, updateProjectStatus } from "../utils/utils.js";
+import { updateProjectStatus } from "../utils/utils.js";
 import {
   handleValidateUniqueProject,
   handleValidationErrors,
@@ -15,24 +15,6 @@ export const getAllProjects = async (_req, res) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-};
-
-export const getPendingProjects = async (_req, res) => {
-  const projects = await getStatusProject("Pendiente");
-  if (projects.message) return res.status(404).json(projects);
-  res.status(200).json(projects);
-};
-
-export const getInProgressProjects = async (_req, res) => {
-  const projects = await getStatusProject("En progreso");
-  if (projects.message) return res.status(404).json(projects);
-  res.status(200).json(projects);
-};
-
-export const getCompletedProjects = async (_req, res) => {
-  const projects = await getStatusProject("Completado");
-  if (projects.message) return res.status(404).json(projects);
-  res.status(200).json(projects);
 };
 
 export const getProjectById = async (req, res) => {
