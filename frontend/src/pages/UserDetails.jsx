@@ -71,8 +71,8 @@ export default function UserDetails() {
     );
     if (status === 200) {
       setShowAssignModal(false);
+      setSelectedTaskIds([]);
       alert("Tareas asignadas correctamente");
-      // Actualizar las tareas asignadas
       const updatedTasks = await getUserTasks(userId);
       setTasks(updatedTasks);
     } else {
@@ -93,7 +93,7 @@ export default function UserDetails() {
   return (
     <div
       className="d-flex align-items-center justify-content-center"
-      style={{ marginTop: "50px" }}
+      style={{ marginTop: "100px" }}
     >
       {token && (
         <Row className="justify-content-md-center w-100">
@@ -111,44 +111,42 @@ export default function UserDetails() {
                 </Card.Text>
                 <Card.Text>
                   <strong>Proyectos:</strong>
-                  <ListGroup>
-                    {projects.length > 0 ? (
-                      projects.map((project) => (
-                        <ListGroup.Item key={project._id}>
-                          {project.name}
-                        </ListGroup.Item>
-                      ))
-                    ) : (
-                      <ListGroup.Item>
-                        No hay proyectos asociados
-                      </ListGroup.Item>
-                    )}
-                  </ListGroup>
                 </Card.Text>
+                <ListGroup className="mb-4">
+                  {projects.length > 0 ? (
+                    projects.map((project) => (
+                      <ListGroup.Item key={project._id}>
+                        {project.name}
+                      </ListGroup.Item>
+                    ))
+                  ) : (
+                    <ListGroup.Item>No hay proyectos asociados</ListGroup.Item>
+                  )}
+                </ListGroup>
                 <Card.Text>
                   <strong>Tareas:</strong>
-                  <ListGroup>
-                    {tasks.length > 0 ? (
-                      tasks.map((task) => (
-                        <ListGroup.Item
-                          key={task._id}
-                          className="d-flex justify-content-between align-items-center"
-                        >
-                          {task.title}
-                          <Button
-                            variant="danger"
-                            size="sm"
-                            onClick={() => handleUnassignTask(task._id)}
-                          >
-                            Desasignar
-                          </Button>
-                        </ListGroup.Item>
-                      ))
-                    ) : (
-                      <ListGroup.Item>No hay tareas asignadas</ListGroup.Item>
-                    )}
-                  </ListGroup>
                 </Card.Text>
+                <ListGroup className="mb-4">
+                  {tasks.length > 0 ? (
+                    tasks.map((task) => (
+                      <ListGroup.Item
+                        key={task._id}
+                        className="d-flex justify-content-between align-items-center"
+                      >
+                        {task.title}
+                        <Button
+                          variant="danger"
+                          size="sm"
+                          onClick={() => handleUnassignTask(task._id)}
+                        >
+                          Desasignar
+                        </Button>
+                      </ListGroup.Item>
+                    ))
+                  ) : (
+                    <ListGroup.Item>No hay tareas asignadas</ListGroup.Item>
+                  )}
+                </ListGroup>
                 <div className="text-center">
                   <Button
                     variant="primary"

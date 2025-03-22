@@ -20,6 +20,7 @@ export default function ProjectDetails() {
   const [tasks, setTasks] = useState([]);
   const [selectedTasks, setSelectedTasks] = useState([]);
   const [error, setError] = useState({});
+
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
 
@@ -89,6 +90,7 @@ export default function ProjectDetails() {
     } else {
       setSelectedTasks(selectedTasks.filter((taskId) => taskId !== value));
     }
+    setError({});
   }
 
   return (
