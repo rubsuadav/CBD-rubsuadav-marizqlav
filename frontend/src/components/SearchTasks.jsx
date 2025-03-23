@@ -30,7 +30,10 @@ export default function SearchTasks() {
 
   return (
     <div className="d-flex flex-column align-items-center">
-      <Button variant="success" onClick={() => setShowTaskModal(true)}>
+      <Button
+        style={{ backgroundColor: " #7b7d7d" }}
+        onClick={() => setShowTaskModal(true)}
+      >
         Buscar Tareas
       </Button>
       <Modal

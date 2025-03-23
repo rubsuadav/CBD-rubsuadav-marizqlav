@@ -84,7 +84,7 @@ export default function TaskDetails() {
               {token && (
                 <div className="d-flex justify-content-between">
                   <Button
-                    variant="info"
+                    style={{ backgroundColor: " #808b96" }}
                     onClick={() => setUpdateTaskModal(true)}
                   >
                     Actualizar

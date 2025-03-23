@@ -135,7 +135,7 @@ export default function Tasks() {
                                 className="p-3 mb-2 text-white text-center"
                                 style={{
                                   ...provided.draggableProps.style,
-                                  backgroundColor: "rgb(220, 140, 122)",
+                                  backgroundColor: "rgb(101, 127, 156)",
                                 }}
                               >
                                 <Card.Title

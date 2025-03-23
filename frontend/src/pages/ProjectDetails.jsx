@@ -123,7 +123,7 @@ export default function ProjectDetails() {
               {token && (
                 <div className="d-flex justify-content-between">
                   <Button
-                    variant="info"
+                    style={{ backgroundColor: " #808b96" }}
                     onClick={() => setUpdateProjectModal(true)}
                   >
                     Actualizar

@@ -17,6 +17,7 @@ import Register from "./pages/Register";
 import Login from "./pages/Login";
 import ProjectDetails from "./pages/ProjectDetails";
 import UserDetails from "./pages/UserDetails";
+import "./App.css";
 
 export default function App() {
   // REDIRECT TO REGISTER PAGE IF NOT LOGGED IN AND TRYING TO ACCESS PROTECTED ROUTES

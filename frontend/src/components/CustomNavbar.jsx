@@ -23,7 +23,7 @@ export default function CustomNavbar() {
 
   return (
     <>
-      <Navbar expand="lg" className="bg-info bg-gradient" sticky="top">
+      <Navbar expand="lg" style={{ backgroundColor: "rgb(105, 167, 209)" }} sticky="top">
         <Container>
           <Navbar.Brand
             style={{ cursor: "pointer" }}

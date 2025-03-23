@@ -76,7 +76,7 @@ export default function Projects() {
               <Col key={project._id} md={4} className="mb-4">
                 <Card
                   className="p-3 text-white text-center"
-                  style={{ backgroundColor: "rgb(220, 140, 122)" }}
+                  style={{ backgroundColor: "rgb(101, 127, 156)" }}
                 >
                   <Card.Title
                     className="text-decoration-underline"
