@@ -41,7 +41,7 @@ export default function Tasks() {
   async function handleTaskSubmit(e) {
     e.preventDefault();
 
-    const { status, data } = await createTask(task);
+    const { status, data } = await createTask(task, token);
 
     switch (status) {
       case 400:

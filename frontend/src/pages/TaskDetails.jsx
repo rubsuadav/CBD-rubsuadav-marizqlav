@@ -42,7 +42,7 @@ export default function TaskDetails() {
       });
       return;
     }
-    const { status, data } = await updateTask(taskId, task);
+    const { status, data } = await updateTask(taskId, task, token);
     switch (status) {
       case 400:
         setError(data);
@@ -58,7 +58,7 @@ export default function TaskDetails() {
   }
 
   async function handleDeleteTask() {
-    await deleteTask(taskId);
+    await deleteTask(taskId, token);
     setShowDeleteModal(false);
     navigate("/tasks");
   }
