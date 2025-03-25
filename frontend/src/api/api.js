@@ -164,24 +164,24 @@ export async function getUserTasks(userId) {
   return response.json();
 }
 
-export async function assignTasksToUser(userId, taskIds) {
+export async function assignTasksToUser(userId, taskIds, tokenParameter) {
   const response = await fetch(`${API_URL}/users/assign-task`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `${token}`,
+      Authorization: `${tokenParameter}`,
     },
     body: JSON.stringify({ userId, taskIds }),
   });
   return { status: response.status, data: await response.json() };
 }
 
-export async function removeTasksFromUser(userId, taskIds) {
+export async function removeTasksFromUser(userId, taskIds, tokenParameter) {
   const response = await fetch(`${API_URL}/users/remove-tasks`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `${token}`,
+      Authorization: `${tokenParameter}`,
     },
     body: JSON.stringify({ userId, taskIds }),
   });

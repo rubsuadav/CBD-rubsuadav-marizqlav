@@ -67,7 +67,8 @@ export default function UserDetails() {
 
     const { status, data } = await assignTasksToUser(
       selectedUserId,
-      selectedTaskIds
+      selectedTaskIds,
+      token
     );
     if (status === 200) {
       setShowAssignModal(false);
@@ -81,7 +82,7 @@ export default function UserDetails() {
   }
 
   async function handleUnassignTask(taskId) {
-    const { status } = await removeTasksFromUser(userId, [taskId]);
+    const { status } = await removeTasksFromUser(userId, [taskId], token);
     if (status === 200) {
       setTasks(tasks.filter((task) => task._id !== taskId));
       alert("Tarea desasignada correctamente");
