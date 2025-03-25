@@ -34,7 +34,7 @@ export default function UserDetails() {
   const token = localStorage.getItem("token");
 
   useEffect(() => {
-    getUser(userId).then((data) => setUser(data));
+    getUser(userId, token).then((data) => setUser(data));
     getUserProjects(userId).then((data) => setProjects(data));
     getUserTasks(userId).then((data) => setTasks(data));
   }, [userId]);

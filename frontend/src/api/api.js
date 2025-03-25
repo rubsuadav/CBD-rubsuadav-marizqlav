@@ -138,7 +138,7 @@ export async function login(user) {
   return { status: response.status, data: await response.json() };
 }
 
-export async function getUser(userId) {
+export async function getUser(userId, token) {
   const response = await fetch(`${API_URL}/user/${userId}`, {
     headers: {
       Authorization: `${token}`,
