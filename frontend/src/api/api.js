@@ -17,11 +17,12 @@ export async function createTask(task, token) {
   return { status: response.status, data: await response.json() };
 }
 
-export async function updateTaskStatus(taskId, status) {
+export async function updateTaskStatus(taskId, status, token) {
   const response = await fetch(`${API_URL}/tasks/${taskId}/status`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
+      Authorization: `${token}`,
     },
     body: JSON.stringify({ status }),
   });
