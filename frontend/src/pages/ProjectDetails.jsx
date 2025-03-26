@@ -47,7 +47,7 @@ export default function ProjectDetails() {
       });
       return;
     }
-    const { status, data } = await updateProject(projectId, project);
+    const { status, data } = await updateProject(projectId, project, token);
     switch (status) {
       case 400:
         setError(data);
@@ -72,7 +72,8 @@ export default function ProjectDetails() {
     e.preventDefault();
     const { status, data } = await asociateTaskToProject(
       projectId,
-      selectedTasks
+      selectedTasks,
+      token
     );
     if (status === 201) {
       setAssociateTaskModal(false);

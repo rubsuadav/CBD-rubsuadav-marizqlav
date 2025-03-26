@@ -40,7 +40,7 @@ export default function Projects() {
   async function handleProjectSubmit(e) {
     e.preventDefault();
 
-    const { status, data } = await createProject(project);
+    const { status, data } = await createProject(project, token);
 
     switch (status) {
       case 400:

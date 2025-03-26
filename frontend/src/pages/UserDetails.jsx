@@ -34,7 +34,7 @@ export default function UserDetails() {
   const token = localStorage.getItem("token");
 
   useEffect(() => {
-    getUser(userId).then((data) => setUser(data));
+    getUser(userId, token).then((data) => setUser(data));
     getUserProjects(userId).then((data) => setProjects(data));
     getUserTasks(userId).then((data) => setTasks(data));
   }, [userId]);
@@ -67,7 +67,8 @@ export default function UserDetails() {
 
     const { status, data } = await assignTasksToUser(
       selectedUserId,
-      selectedTaskIds
+      selectedTaskIds,
+      token
     );
     if (status === 200) {
       setShowAssignModal(false);
@@ -81,7 +82,7 @@ export default function UserDetails() {
   }
 
   async function handleUnassignTask(taskId) {
-    const { status } = await removeTasksFromUser(userId, [taskId]);
+    const { status } = await removeTasksFromUser(userId, [taskId], token);
     if (status === 200) {
       setTasks(tasks.filter((task) => task._id !== taskId));
       alert("Tarea desasignada correctamente");

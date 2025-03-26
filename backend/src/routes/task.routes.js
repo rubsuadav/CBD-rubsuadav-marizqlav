@@ -20,6 +20,6 @@ router.get("/tasks", getAllTasks);
 router.get("/task/:id", getTaskById);
 router.put("/task/:id", authenticatedGuard, updateTask);
 router.delete("/task/:id", authenticatedGuard, deleteTask);
-router.put("/tasks/:taskId/status", updateTaskStatus);
+router.put("/tasks/:taskId/status", authenticatedGuard, updateTaskStatus);
 
 export default router;

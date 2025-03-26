@@ -41,7 +41,7 @@ export default function Tasks() {
   async function handleTaskSubmit(e) {
     e.preventDefault();
 
-    const { status, data } = await createTask(task);
+    const { status, data } = await createTask(task, token);
 
     switch (status) {
       case 400:
@@ -91,7 +91,7 @@ export default function Tasks() {
 
     setTasks(tasks.map((task) => (task._id === removed._id ? removed : task)));
 
-    await updateTaskStatus(removed._id, removed.status);
+    await updateTaskStatus(removed._id, removed.status, token);
   }
 
   return (
@@ -126,6 +126,7 @@ export default function Tasks() {
                             key={item._id}
                             draggableId={item._id}
                             index={index}
+                            isDragDisabled={!token}
                           >
                             {(provided) => (
                               <Card
