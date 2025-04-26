@@ -63,7 +63,7 @@ export default function ProjectDetails() {
   }
 
   async function handleDeleteProject() {
-    await deleteProject(projectId);
+    await deleteProject(projectId, token);
     setShowDeleteModal(false);
     navigate("/projects");
   }
